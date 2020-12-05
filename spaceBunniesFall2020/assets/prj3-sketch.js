@@ -44,7 +44,7 @@ var kits = [];
 let getInPosi = false; // if enemies are getting in positon will be true once they are in position it will turn false
 
 // ---- USER OPTIONS VARIABLES -----
-let soundOn = true;
+let soundOn ;
 var soundButton, startGameB; 
 //------Game Text --------------
 const game_overText = "GAME OVER"; 
@@ -69,6 +69,8 @@ function preload(){
 function setup() 
 {
     createCanvas( display.width,display.height );  // Make a P5 canvas.
+    // pre game entities set up 
+    soundOn = true; 
     // Load Game Images
     backImg = loadImage('assets/images/space_back.jpg');
     playerImg = loadImage('assets/images/Player.png');
@@ -369,7 +371,6 @@ function game_over(){
     draw_text(game_overText,width/3+100, height/2, 50)
     draw_text(restartText, width/3 , height/2 + 40,35);
     run_game = false;
-    soundOn = false; 
 }
   
 //ADD CONTINUE/MENU option: display game victory on screen win player wins
@@ -377,7 +378,6 @@ function game_over(){
       draw_text(game_win_text,width/3-50, height/2, 50)
       draw_text(restartText, width/3 , height/2 + 40,35);
       run_game = false;
-      soundOn = false; 
     }
 
 //DONE: Draws Text on Screen 
