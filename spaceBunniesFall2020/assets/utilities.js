@@ -8,6 +8,8 @@ class Element{
         this.sz = sz;  
         this.hasKit = false; 
         this.kit = new Object();
+        this.health = 0; 
+        this.health_y = 0; 
     }
     getDistance(element){ 
         let dx = this.x - element.x; 
@@ -39,6 +41,22 @@ class Element{
     inPosition(){
         return (this.x >= this.start_poX) && (this.y >= this.start_poY); 
     }
+    //DONE: draws the health bar beneath the player changes from yellow to red when health is very low
+    healthBar(){
+        stroke("grey") ;
+        fill(255,255,255);
+        rect(this.x-10,this.health_y,100,10); 
+        if(this.health > 50){
+            fill(0,255,0);
+            rect(this.x-10,this.health_y,this.health,10); }
+        else if( this.health <= 50 && this.health >=30 ){
+            fill(255,255,0);
+            rect(this.x-10,this.health_y,this.health,10);
+        }else{
+            fill(255,0,0);
+            rect(this.x-10,this.health_y,this.health,10);
+        }
+    }
 }
 class Player extends Element{
     constructor(x,y,speed, image){
@@ -48,6 +66,7 @@ class Player extends Element{
         this.score= 0; 
         this.lasers = []; 
         this.hitCount = 1; 
+
     }
     //DONE: moves the player based on key input
     move(){
@@ -60,6 +79,7 @@ class Player extends Element{
          if(keyIsDown(UP_ARROW) && this.y >=0){
             this.y-=this.speed;
           }
+        this.health_y = this.y+90;
         image(this.image,this.x,this.y,80,80);
         this.healthBar();
     }
@@ -78,23 +98,9 @@ class Player extends Element{
                     this.lasers.splice(i,1);
             }}
         }
-    //DONE: draws the health bar beneath the player changes from yellow to red when health is very low
-    healthBar(){
-        stroke("grey") ;
-        fill(255,255,255);
-        rect(this.x-10,this.y+90,100,10); 
-        if(this.health > 50){
-            fill(0,255,0);
-            rect(this.x-10,this.y+90,this.health,10); }
-        else if( this.health <= 50 && this.health >=30 ){
-            fill(255,255,0);
-            rect(this.x-10,this.y+90,this.health,10);
-        }else{
-            fill(255,0,0);
-            rect(this.x-10,this.y+90,this.health,10);
-        }
-    }
+    
 }
+
 class Laser extends Element{
     constructor (x,y, speed,){
         super(x,y,speed,10);
@@ -141,7 +147,7 @@ class Enemy extends Element{
         this.dx = speed; 
         this.dy = speed; 
         this.move_counter = 0; 
-        this.follow_dis = Math.floor((Math.random()*300)+50);
+        this.follow_dis = Math.floor((Math.random()*500)+150);
         this.start_poY = Math.floor(Math.random()*(height-400)+this.sz); 
         this.start_poX = Math.floor(Math.random()*(width-80)+this.sz); 
         if(this.x > this.start_poX) this.x = 0; 
@@ -158,7 +164,7 @@ class Enemy extends Element{
         // fill("black"); 
         // ellipse(this.x+31,this.y+10,this.sz/5,this.sz/5);
         // ellipse(this.x+17,this.y+10,this.sz/5,this.sz/5);
-        image(enemyImg,this.x,this.y,80,80);
+        image(enemyImg,this.x,this.y,95,100);
 
     }
     move(){ 
@@ -175,7 +181,7 @@ class Enemy extends Element{
         if(this.x >= width - this.sz || this.x <=0){
             this.dx = -this.dx; }
         this.x += this.dx; 
-        if(this.y >= minHeight - this.sz-16 || this.y <= this.sz){
+        if(this. y >= minHeight - this.sz-16 || this.y <= this.sz){
             this.dy = -this.dy; 
         }this.y += this.dy; 
         this.draw(); 
@@ -200,41 +206,37 @@ class Enemy extends Element{
     track(element){
         let dist = this.getDistance(element); 
         if(dist < this.follow_dis){
-            if((this.x -element.x)< (this.y - element.y)){
-                if( this.x <= element.x){
-                    this.x += this.speed; 
-                }else{
-                    this.y -= this.speed; 
-                }
-            }else {
-                if(this.y <= element.y){
-                    this.y += this.speed; 
-                }else if(this.y > element.y){
-                    this.x -= this.speed; 
-                }}}
-        else{this.move(); }
-        image(enemyHitImg,this.x,this.y,80,80);
+            
+                let dx_ = element.x - this.x; 
+                let dy_ = element.y - this.y; 
+                dx_ = dx_/dist; 
+                dy_ = dy_/dist; 
+                this.x += dx_ * this.speed; 
+                this.y += dy_ * this.speed; }
+        else{
+                this.move(); 
+            }
+        image(enemyHitImg,this.x,this.y,95,100);
     }
 }
+class Boss extends Element{
+    constructor(x,y,speed){
+        super(x,y,speed,100);
+        this.health = BOSS_MAX_HEALTH; 
+        this.health_y = this.y+150; 
+        this.isHit = false; 
+    }
+    move(el){
+        this.health_y = this.y+150; 
+        let dis = this.getDistance(el);
+        if(dis<500){
+            console.log("player is close"); 
+        }
+        if(this.isHit){
+            image(bossHitImg,this.x,this.y,100,150);
+        }else{
+        image(bossImg,this.x,this.y,100,150);}
+        this.healthBar(); 
+    }
 
-// dx, dy = target.x - self.x, target.y - self.y
-// dist = math.hypot(dx, dy)
-// dx, dy = dx / dist, dy / dist
-// self.x += dx * self.move_speed
-// self.y += dy * self.move_speed
-
-// def auto_movement(self, obj):
-// dis = self.distance(obj)
-// if dis < 150:
-//     if (self.x - obj.x) < (self.y - obj.y):
-//         if self.x <= obj.x:
-//             self.x += self.move_speed
-//         else:
-//             self.y -= self.move_speed
-//     else:
-//         if self.y <= obj.y:
-//             self.y += self.move_speed
-//         elif self.y > obj.y:
-//             self.x -= self.move_speed
-// else:
-//     self.movement()
+}

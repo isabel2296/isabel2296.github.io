@@ -6,6 +6,7 @@ var y1 = 0;
 var y2 = -display.height; 
 const scroll_speed = 4; 
 let gameCountDown = 30 ;
+
 //====== GAME POINT SYSTEM ======== 
 let enemyKill = 50; // player gets 50 points 
 let kitSaved  = 25; // player gets 25 points
@@ -15,11 +16,13 @@ let starPoint = 10; // player gets 10 points
 //======= HealthSystem =============
 let eatCarrot = 3; // player gains 3 health point
 let enemyHit = 1; // player loses 1 health points
+const BOSS_MAX_HEALTH = 100; // boss starting health
 
 // ---- GAME SOUNDS ======
 let pause_play_sound, laser_sound, explosive_sound, enemyStart_sound, gameBGM; 
 // --- GAME IMAGES -------------
-let backImg, playerImg, kitImg, bunnyNpcImg, playerHitImg, backGroundImg, enemyImg, enemyHitImg; 
+let backImg, playerImg, kitImg, bunnyNpcImg, playerHitImg, backGroundImg, enemyImg, enemyHitImg, bossImg, bossHitImg; 
+
 // ----- SHIELD VARIABLES -----------
     //     NOTE: Wave variables and helper function taken from https://p5js.org/examples/math-sine-wave.html 
     //     and modified to fit my liking
@@ -32,21 +35,26 @@ let theta = 0.0; // Start angle at 0
 let amplitude = 5.0; // Height of wave
 let period = 100.0; // How many pixels before the wave repeats
 let yvalues; // Using an array to store height values for the wave
-//---- Player Info ----- 
+//---- Player AVATAR Info ----- 
 var player; 
 const player_speed = 15;
 const player_speedWithKit = 10; 
 const laser_speed = 10  ;  /// player's lasers   
-// ---- ENEMY & KIT KIT --------
-let num_of_enemies, num_of_kits,numKitSaved ;
+
+// ---- ENEMY & BOSS & KIT Info --------
+let num_of_enemies, num_of_kits,numKitSaved;
 var enemies = []; 
 var kits = []; 
+var obs = []; //obstacles
 let getInPosi = false; // if enemies are getting in positon will be true once they are in position it will turn false
-
+var lBoss; 
 // ---- USER OPTIONS VARIABLES -----
-let soundOn ;
-var soundButton, startGameB; 
-//------Game Text --------------
+let soundOn = true;
+let userSoundChoice = true; 
+let isPaused = false; 
+var soundButton, startGameB; // buttons
+
+//------Game Text NEED TO CHANGE--------------
 const game_overText = "GAME OVER"; 
 const game_win_text = "Congratulations!! You Won!!";
 const restartText = "Refresh webpage to restart game."; 
@@ -56,8 +64,9 @@ const pause = "PAUSED";
 var setTimer = 5; // 5 seconds 
 const g_frame_mod = 24; // Update ever 'mod' frames.
 var run_game = false; // if this is true then run game 
-var menu_on = true; 
-var countDown = false; 
+var menu_on = true; // if this is true then menu is displayed
+// var countDown = false; DELETE THIS
+
 // -------- Start of P5 Functions --------------
 function preload(){
     gameBGM = createAudio('assets/sounds/bg_game.wav' );
@@ -69,8 +78,6 @@ function preload(){
 function setup() 
 {
     createCanvas( display.width,display.height );  // Make a P5 canvas.
-    // pre game entities set up 
-    soundOn = true; 
     // Load Game Images
     backImg = loadImage('assets/images/space_back.jpg');
     playerImg = loadImage('assets/images/Player.png');
@@ -79,6 +86,8 @@ function setup()
     backGroundImg = loadImage('assets/images/bgpic_1.jpg');
     enemyImg = loadImage('assets/images/boss.png');
     enemyHitImg = loadImage('assets/images/boss_hit.png');
+    bossImg = loadImage('assets/images/LBoss.png');
+    bossHitImg = loadImage('assets/images/LBossHit.png');
     // Load Game Sound 
     laser_sound = loadSound('assets/sounds/weapon_laser.mp3');
     explosive_sound = loadSound('assets/sounds/explosion.mp3');
@@ -88,11 +97,40 @@ function setup()
     // Button 
     startGameB = select('#start'); 
     soundButton = select('#sound');
-    startGameB.position(850,650);
+    startGameB.position(display.width/2,display.height/2+100);
     startGameB.mousePressed(set_game);
     soundButton.mousePressed(soundOnOff_Alpha);
 }
 
+// Sets ups game vairables, able to call this when reseting
+function set_game(){
+    startGameB.remove(); 
+    menu_on = false;
+    getInPosi = true; 
+    // initialize Player (class Player in utilities.js)
+    player = new Player(width/2,height-80-25,player_speed, playerImg); 
+    // intialize boss
+    lBoss = new Boss(100, height/2, player_speed);
+    // initialize enemy and kit values 
+    num_of_enemies = 15; 
+    numKitSaved = 0; 
+    num_of_kits = Math.ceil(num_of_enemies/3); 
+    let temp = num_of_kits;  
+    // -- create the enemies -- 
+    for(let i = 0; i < num_of_enemies; i ++ ){
+      enemies.push(new Enemy(width/2,0,4));
+      if(temp != 0){
+          enemies[i].jailer = true;       
+          temp--;
+          enemies[i].kit = new Kit(kitImg);
+      } 
+    }
+    //shield set up
+    dx = (TWO_PI / period) * xspacing;
+    yvalues = new Array(floor(w / xspacing));
+    setTimer = 5;
+  
+  }
 
 function draw()  // P5 Frame Re-draw Fcn, Called for Every Frame.
 {
@@ -109,7 +147,8 @@ function draw()  // P5 Frame Re-draw Fcn, Called for Every Frame.
         draw_text(gameCountDown,width-80,66,50);
         if(aliensInPosition()){
             if(setTimer == 0){
-                if (frameCount % 60 == 0 ) { // if the frameCount is divisible by 60, then a second has passed. it will stop at 0
+                if (frameCount % 60 == 0 ) { 
+            // if the frameCount is divisible by 60, then a second has passed. it will stop at 0
                     run_game = true; 
                     getInPosi = false; 
                   }
@@ -125,59 +164,29 @@ function draw()  // P5 Frame Re-draw Fcn, Called for Every Frame.
 }
 
 function keyPressed( )
-{   console.log('key pressed');
-    if(getInPosi == false){
+{   
+    if(getInPosi == false && menu_on==false){
             if(key == 'p'  )
-                 { run_game = !run_game;
-                   draw_text(pause,width/2-100,height/2,50);
-                   if(soundOn){
-                       soundOn = false;
-                     }else {soundOn = !soundOn;}}
-    if(key == ' ' && runGame)  
+                {
+                isPaused = !isPaused;  
+                run_game = !run_game;
+                draw_text(pause,width/2-100,height/2,50);
+                if(isPaused){
+                    if(soundOn){soundOn = false; }
+                    else if(soundOn == false){ soundOn = false;}
+                    else {soundOn = !soundOn; }
+                }else{
+                    soundOn = userSoundChoice;}
+                }
+    if(key == ' ' && run_game)  
              { player.lasers.push(new Laser(player.x+39,player.y, laser_speed)); 
                 if(soundOn) {laser_sound.play();}}}
 }
-function soundOnOff_Alpha(){
-    soundOn = !soundOn; 
-}
-function bgm_soundOnOff(){
-    if(soundOn){
-        gameBGM.play();
-    }else {
-        gameBGM.stop(); 
-    }
-}
+
 function mousePressed(){
 }
 
-// --------------HELPER FUNCTIONS --------------
-// Sets ups game vairables, able to call this when reseting
-function set_game(){
-  startGameB.remove(); 
-  menu_on = false;
-  getInPosi = true; 
-  // initialize Player (class Player in utilities.js)
-  player = new Player(width/2,height-80-25,player_speed, playerImg); 
-  // initialize enemy and kit values 
-  num_of_enemies = 15; 
-  numKitSaved = 0; 
-  num_of_kits = Math.ceil(num_of_enemies/3); 
-  let temp = num_of_kits;  
-  // -- create the enemies -- 
-  for(let i = 0; i < num_of_enemies; i ++ ){
-    enemies.push(new Enemy(width/2,0,4));
-    if(temp != 0){
-        enemies[i].jailer = true;       
-        temp--;
-        enemies[i].kit = new Kit(kitImg);
-    } 
-  }
-  //shield set up
-  dx = (TWO_PI / period) * xspacing;
-  yvalues = new Array(floor(w / xspacing));
-  setTimer = 5;
 
-}
 // updates the game display
 function runGame() 
 {   
@@ -211,12 +220,14 @@ function runGame()
     laserHandling(); 
     player.shooting(); 
     player.move(); 
+    lBoss.move(player); 
+
         // display's shield when player has kit 
     if(shieldOnOff){
         calcWave();
         renderWave();}
     //DONE: win handling all enemies die, player wins 
-    if(enemies.length == 0 || numKitSaved == num_of_kits){
+    if(enemies.length == 0 || numKitSaved == num_of_kits ){
         game_win(); 
     }
     //DONE:  game over handling player health reaches 0, player loses
@@ -254,82 +265,8 @@ function runGame()
     }
     
 }
-//  Display game countdown 
-function displayGameCountdown(){
-    noStroke() ;
-    fill(155);
-    ellipse(width-50,50,75,75);
-    if(frameCount % 60 == 0){
-        gameCountDown--; 
-    }
-    draw_text(gameCountDown,width-65,65,50);
 
-    }
-//DONE: Displays and updates score on screen
-function displayScore(){
-    let scoreText = "score: " + player.score; 
-    draw_text(scoreText, 0,height,60);
-}
-//WORK ON TIMING Display points ernered
-function displayPointsRec(sign,points){
-    player.score += points;  
-    let te = sign + points; 
-    draw_text(te, player.x+80, player.y+40, 40); 
-}
-//DONE: Display kit saved 
-function displayKitSaved(){
-    let kitSavedText = numKitSaved + "/" + num_of_kits;
-    draw_text(kitSavedText, width-180,height,60);
-    image(kitImg,width-100,height-80,80,80);
-}
-//DONE: Displays a countdown on screen for start
-function displaySetUpCountDown(){
-    noStroke() ;
-    fill(155);
-    if(setTimer == 0){
-        rect(width/2-30,height/2-100,220,120);
-        draw_text("start",width/2-20,height/2,100);
-    }else{
-    ellipse(width/2+30,height/2-40,120,120);
-    draw_text(setTimer,width/2,height/2,100);}
-  if (frameCount % 60 == 0 && setTimer > 0) { // if the frameCount is divisible by 60, then a second has passed. it will stop at 0
-    setTimer --;
-  }
-}
-//DONE: returns true if all aliens get into intial game position 
-function aliensInPosition(){
-    for(let i = 0; i < enemies.length; i++){
-        if(enemies[i].positionSet == false){
-            return false; 
-        } } return true; }
 
-//WORK ON THISdraws the menu screen
-function draw_menu() {
-    background(0);
-    draw_text("TBD MENU PAGE",width/2-200,height/2,50);
-}
-//DONE:WAVE function provided by Daniel Shiffman https://p5js.org/examples/math-sine-wave.html
-function calcWave() {
-    // Increment theta (try different values for
-    // 'angular velocity' here)
-    theta += 0.02;
-    // For every x value, calculate a y value with sine function
-    let x = theta;
-    for (let i = 0; i < yvalues.length; i++) {
-      yvalues[i] = sin(x) * amplitude;
-      x += dx;
-    }
-  }
-//DONE:WAVE function provided by Daniel Shiffman https://p5js.org/examples/math-sine-wave.html
-function renderWave() {
-    noStroke();
-    fill(255);
-    //yvalues.sort(function(a,b){return a-b});
-    for (let x = 0; x < yvalues.length; x++) {
-        ellipse(x * xspacing, height-155 + yvalues[x], 8, 8);
-      }
-  }
-  
 //DONE: handles when laser collides with objects
 function laserHandling(){
     let i= 0; 
@@ -350,40 +287,7 @@ function laserHandling(){
     i++});  
 }
 
-//DONE: gives the background image the illusion of scrolling downward  - provided by p5.js
-function background_scroll(){
-    image(backImg, 0, y1, display.width, display.height);
-    image(backImg, 0, y2, display.width, display.height);
-    y1 += scroll_speed; 
-    y2 += scroll_speed; 
-    if(y1 == height){
-        y1 = -height; 
-    } 
-    if(y2 == height){
-        y2 = -height; 
-    }
-}
 
 
 
-//ADD RESTART/MENU option:  display game over screen when player dies or looses
-function game_over(){
-    draw_text(game_overText,width/3+100, height/2, 50)
-    draw_text(restartText, width/3 , height/2 + 40,35);
-    run_game = false;
-}
-  
-//ADD CONTINUE/MENU option: display game victory on screen win player wins
- function game_win(){
-      draw_text(game_win_text,width/3-50, height/2, 50)
-      draw_text(restartText, width/3 , height/2 + 40,35);
-      run_game = false;
-    }
 
-//DONE: Draws Text on Screen 
-function draw_text(text_,x,y,size_){
-    noStroke(); 
-    fill(255,255,0);
-    textSize(size_); 
-    text(text_,x,y); 
-}
