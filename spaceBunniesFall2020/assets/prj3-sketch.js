@@ -1,18 +1,18 @@
 //isabel silva
 // main components of the game shows here 
 //--- GAME DISPLAY + Scrolling Image Variables -----
-var display = { width:1500, height: 1000 }; 
+var display = { width:1300, height: 700 }; 
 var y1 = 0; 
 var y2 = -display.height; 
 const scroll_speed = 4; 
-let gameCountDown = 30 ;
+let gameCountDown;
 
 //====== GAME POINT SYSTEM ======== 
 let enemyKill = 50; // player gets 50 points 
 let kitSaved  = 25; // player gets 25 points
 let kitDies = -100; // player loses 100 points
 let starPoint = 10; // player gets 10 points 
-
+let bossHitLoss = -10; 
 //======= HealthSystem =============
 let eatCarrot = 3; // player gains 3 health point
 let enemyHit = 1; // player loses 1 health points
@@ -42,17 +42,15 @@ const player_speedWithKit = 10;
 const laser_speed = 10  ;  /// player's lasers   
 
 // ---- ENEMY & BOSS & KIT Info --------
-let num_of_enemies, num_of_kits,numKitSaved;
-var enemies = []; 
-var kits = []; 
-var obs = []; //obstacles
+let num_of_enemies, num_of_kits,numKitSaved, num_of_kitsLeft,bossFight=false;
+var enemies, kits, obs;  //obstacles
 let getInPosi = false; // if enemies are getting in positon will be true once they are in position it will turn false
 var lBoss; 
 // ---- USER OPTIONS VARIABLES -----
 let soundOn = true;
 let userSoundChoice = true; 
 let isPaused = false; 
-var soundButton, startGameB; // buttons
+var soundButton, startGameB, restartB, resumeB; // buttons
 
 //------Game Text NEED TO CHANGE--------------
 const game_overText = "GAME OVER"; 
@@ -74,9 +72,21 @@ function preload(){
         gameBGM.play(); 
     }
     //game music will be start playing
+    //BUTTONS 
+    // Button 
+    startGameB = select('#start'); 
+    soundButton = select('#sound');
+    restartB = select('#restart');
+    resumeB = select('#continue');
+    restartB.position(display.width/2-200,display.height/2+100);
+    resumeB.position(restartB.x, restartB.y+200);
+    startGameB.position(display.width/2,display.height/2+100);
+    restartB.hide(); 
+    resumeB.hide(); 
 }
 function setup() 
 {
+
     createCanvas( display.width,display.height );  // Make a P5 canvas.
     // Load Game Images
     backImg = loadImage('assets/images/space_back.jpg');
@@ -92,19 +102,29 @@ function setup()
     laser_sound = loadSound('assets/sounds/weapon_laser.mp3');
     explosive_sound = loadSound('assets/sounds/explosion.mp3');
     // Sound Volume
-    gameBGM.volume(0.2);
+    gameBGM.volume(0.4);
     //pause_play_sound = loadSound();
-    // Button 
-    startGameB = select('#start'); 
-    soundButton = select('#sound');
-    startGameB.position(display.width/2,display.height/2+100);
+    restartB.mousePressed(set_game);
     startGameB.mousePressed(set_game);
     soundButton.mousePressed(soundOnOff_Alpha);
+    resumeB.mousePressed(resumeGame);
 }
 
 // Sets ups game vairables, able to call this when reseting
 function set_game(){
-    startGameB.remove(); 
+    // game start ups
+    gameCountDown = 30; 
+    soundOn = userSoundChoice; 
+    //create empty lists
+    enemies = [];
+    kits =[];
+    obs=[]; 
+    bossFight = false; 
+    
+    //hide buttons
+    restartB.hide(); 
+    resumeB.hide(); 
+    startGameB.hide(); 
     menu_on = false;
     getInPosi = true; 
     // initialize Player (class Player in utilities.js)
@@ -112,10 +132,11 @@ function set_game(){
     // intialize boss
     lBoss = new Boss(100, height/2, player_speed);
     // initialize enemy and kit values 
-    num_of_enemies = 15; 
+    num_of_enemies = 8; 
     numKitSaved = 0; 
     num_of_kits = Math.ceil(num_of_enemies/3); 
     let temp = num_of_kits;  
+    num_of_kitsLeft = num_of_kits;
     // -- create the enemies -- 
     for(let i = 0; i < num_of_enemies; i ++ ){
       enemies.push(new Enemy(width/2,0,4));
@@ -134,7 +155,6 @@ function set_game(){
 
 function draw()  // P5 Frame Re-draw Fcn, Called for Every Frame.
 {
-    bgm_soundOnOff(); 
     if(menu_on){
         image(backGroundImg, 0, 0, display.width, display.height);
     }
@@ -161,6 +181,9 @@ function draw()  // P5 Frame Re-draw Fcn, Called for Every Frame.
     }
     if(run_game) runGame();
     
+
+    bgm_soundOnOff(); 
+    
 }
 
 function keyPressed( )
@@ -170,12 +193,14 @@ function keyPressed( )
                 {
                 isPaused = !isPaused;  
                 run_game = !run_game;
-                draw_text(pause,width/2-100,height/2,50);
+                draw_text(pause,width/2-100,200,50);
                 if(isPaused){
                     if(soundOn){soundOn = false; }
                     else if(soundOn == false){ soundOn = false;}
                     else {soundOn = !soundOn; }
                 }else{
+                    restartB.show(); 
+                    resumeB.show();
                     soundOn = userSoundChoice;}
                 }
     if(key == ' ' && run_game)  
@@ -204,15 +229,11 @@ function runGame()
             bot.moveLeftRight();
             bot.kit.taken(bot);}
         else{
-         //if(player.hasKit){
-            bot.track(player);
-           // }else{
-             //   bot.move(); 
+            bot.track(player);          
             }
 
         if(bot.collide(player)){ // enemy hits player
             player.health -= enemyHit;
-            image(enemyHitImg,bot.x,bot.y,80,80);
             player.hitPulse();
         }
     });
@@ -220,18 +241,29 @@ function runGame()
     laserHandling(); 
     player.shooting(); 
     player.move(); 
-    lBoss.move(player); 
+    if(bossFight){
+        lBoss.move(player); 
+        if(lBoss.collide(player)){
+            lBoss.isHit = true; 
+            player.health -= enemyHit;
+            player.hitPulse(); 
+        }else{
+            lBoss.isHit = false; 
+        }
 
-        // display's shield when player has kit 
+    }
     if(shieldOnOff){
         calcWave();
         renderWave();}
     //DONE: win handling all enemies die, player wins 
-    if(enemies.length == 0 || numKitSaved == num_of_kits ){
+    if(num_of_kitsLeft == 0){
+        bossFight=true; 
+    }
+    if(enemies.length == 0 && lBoss.health <= 0 ){
         game_win(); 
     }
     //DONE:  game over handling player health reaches 0, player loses
-    if(player.health <= 0 || gameCountDown ==0){
+    if(player.health <= 0 || gameCountDown == 0){
         game_over();
     } 
         // ----kit handling -----
@@ -249,6 +281,7 @@ function runGame()
             }
             if(k.y > height - 80){
                 kits.splice(k,1);
+                num_of_kitsLeft += -1; 
                 displayPointsRec("-",kitDies);
             } 
         });
@@ -260,10 +293,10 @@ function runGame()
             player.speed = player_speed;
             numKitSaved++;
             shieldOnOff = false; 
+            num_of_kitsLeft += -1; 
             displayPointsRec("+", kitSaved);
         }
-    }
-    
+    } 
 }
 
 
@@ -271,6 +304,18 @@ function runGame()
 function laserHandling(){
     let i= 0; 
     player.lasers.forEach(function(laser){
+        if(bossFight){
+            if(lBoss.collide(laser)){
+                lBoss.health -= 10; 
+                lBoss.isHit = true; 
+                player.lasers.splice(i,1);
+                if(lBoss.health ==0){
+                    displayPointsRec("+",1000);
+                    
+                }
+
+            }else{lBoss.isHit = false; }
+        }
          for(let e = 0 ; e < enemies.length; e++){
             if(enemies[e].collide(laser)){
                 if(enemies[e].jailer){

@@ -22,4 +22,24 @@ h1{
     background-color: maroon;
 }
 
+section#game {
+    width: 1300px; 
+    height: 700px; 
+}
 
+section#scoreBoard .scoreB{
+    display: block;
+    scroll-padding-bottom: 50%;
+    margin: 0 auto 0 auto;
+    font-size: 30px;
+    text-align: left;
+    width: 50%;
+    cursor: pointer;
+    color: yellow;
+    top: 1500px; 
+    position: fixed; 
+}
+
+section#scoreBoard .scoreB .high-scores{
+    text-align: left;
+}

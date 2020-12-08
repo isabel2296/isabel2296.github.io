@@ -10,6 +10,7 @@ class Element{
         this.kit = new Object();
         this.health = 0; 
         this.health_y = 0; 
+        this.max_health = 0; 
     }
     getDistance(element){ 
         let dx = this.x - element.x; 
@@ -154,17 +155,17 @@ class Enemy extends Element{
 
     }
     draw(){
-        // noStroke();   
-        // fill(this.c);
-        // rect(this.x+5,this.y+15,this.sz,(this.sz/2));
-        // ellipse(this.x+25,this.y+15,this.sz,this.sz);
-        // fill("white");
-        // ellipse(this.x+17,this.y+10,this.sz/4,this.sz/4);
-        // ellipse(this.x+31,this.y+10,this.sz/4,this.sz/4); 
-        // fill("black"); 
-        // ellipse(this.x+31,this.y+10,this.sz/5,this.sz/5);
-        // ellipse(this.x+17,this.y+10,this.sz/5,this.sz/5);
-        image(enemyImg,this.x,this.y,95,100);
+        noStroke();   
+        fill(this.c);
+        rect(this.x+5,this.y+15,this.sz,(this.sz/2));
+        ellipse(this.x+25,this.y+15,this.sz,this.sz);
+        fill("white");
+        ellipse(this.x+17,this.y+10,this.sz/4,this.sz/4);
+        ellipse(this.x+31,this.y+10,this.sz/4,this.sz/4); 
+        fill("black"); 
+        ellipse(this.x+31,this.y+10,this.sz/5,this.sz/5);
+        ellipse(this.x+17,this.y+10,this.sz/5,this.sz/5);
+        //image(enemyImg,this.x,this.y,95,100);
 
     }
     move(){ 
@@ -216,7 +217,7 @@ class Enemy extends Element{
         else{
                 this.move(); 
             }
-        image(enemyHitImg,this.x,this.y,95,100);
+            this.draw(); 
     }
 }
 class Boss extends Element{
@@ -225,17 +226,29 @@ class Boss extends Element{
         this.health = BOSS_MAX_HEALTH; 
         this.health_y = this.y+150; 
         this.isHit = false; 
+        this.dx = speed; 
+        this.dy = speed; 
     }
     move(el){
         this.health_y = this.y+150; 
         let dis = this.getDistance(el);
-        if(dis<500){
-            console.log("player is close"); 
+        let dist = 150; 
+        if(dis<dist){
+            let dx_ = el.x - this.x; 
+            let dy_ = el.y - this.y; 
+            dx_ = dx_/dist; 
+            dy_ = dy_/dist; 
+            this.x += dx_ * this.speed; 
+            this.y += dy_ * this.speed;
+            image(bossImg,this.x,this.y,100,150);
+
         }
         if(this.isHit){
             image(bossHitImg,this.x,this.y,100,150);
         }else{
+
         image(bossImg,this.x,this.y,100,150);}
+
         this.healthBar(); 
     }
 

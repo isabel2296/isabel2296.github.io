@@ -70,9 +70,10 @@ function renderWave() {
 // ======== GAME OVER ACTIONS Winning AND Losing ============
 //ADD RESTART/MENU option:  display game over screen when player dies or looses
 function game_over(){
-    draw_text(game_overText,width/3+100, height/2, 50)
-    draw_text(restartText, width/3 , height/2 + 40,35);
+    draw_text(game_overText,width/3+100, 200, 50)
     run_game = false;
+    restartB.show(); 
+    soundOn = false; 
 }
   
 //ADD CONTINUE/MENU option: display game victory on screen win player wins
@@ -80,10 +81,20 @@ function game_over(){
       draw_text(game_win_text,width/3-50, height/2, 50)
       draw_text(restartText, width/3 , height/2 + 40,35);
       run_game = false;
+      resumeB.show(); 
+      soundOn = false; 
+
     }
 
 // ======== HELPER FUNCTIONS =================
-
+// resume game from button 
+function resumeGame(){
+    resumeB.hide(); 
+    restartB.hide(); 
+    isPaused = false; 
+    run_game = true; 
+    soundOn = userSoundChoice; 
+}
 //DONE: Draws Text on Screen 
 function draw_text(text_,x,y,size_){
     noStroke(); 
