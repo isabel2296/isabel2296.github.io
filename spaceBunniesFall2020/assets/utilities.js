@@ -226,8 +226,8 @@ class Boss extends Element{
         this.health = BOSS_MAX_HEALTH; 
         this.health_y = this.y+150; 
         this.isHit = false; 
-        this.dx = speed; 
-        this.dy = speed; 
+        this.dx = 2; 
+        this.dy = 2; 
     }
     move(el){
         this.health_y = this.y+150; 
@@ -242,6 +242,22 @@ class Boss extends Element{
             this.y += dy_ * this.speed;
             image(bossImg,this.x,this.y,100,150);
 
+        }else{
+            let minHeight ; 
+            if(shieldOnOff){
+                minHeight = shieldY; 
+            }else {
+                minHeight = height-this.sz;
+            }
+            if(this.y > minHeight && shieldOnOff   ){
+                this.y = this.start_poY; 
+            }
+            if(this.x >= width - this.sz || this.x <=0){
+                this.dx = -this.dx; }
+            this.x += this.dx; 
+            if(this. y >= minHeight - this.sz-16 || this.y <= this.sz){
+                this.dy = -this.dy; 
+            }this.y += this.dy; 
         }
         if(this.isHit){
             image(bossHitImg,this.x,this.y,100,150);
