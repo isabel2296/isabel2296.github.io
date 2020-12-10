@@ -226,8 +226,8 @@ class Boss extends Element{
         this.health = BOSS_MAX_HEALTH; 
         this.health_y = this.y+150; 
         this.isHit = false; 
-        this.dx = 2; 
-        this.dy = 2; 
+        this.dx = 3; 
+        this.dy = 3; 
     }
     move(el){
         this.health_y = this.y+150; 
