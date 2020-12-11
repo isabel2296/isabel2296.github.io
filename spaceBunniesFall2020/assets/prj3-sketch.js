@@ -9,7 +9,7 @@ let gameCountDown;
 
 //====== GAME POINT SYSTEM ======== 
 let enemyKill = 50; // player gets 50 points 
-let kitSaved  = 25; // player gets 25 points
+let kitSaved  = 75; // player gets 25 points
 let kitDies = -100; // player loses 100 points
 let starPoint = 10; // player gets 10 points 
 let bossHitLoss = -10; 
@@ -17,6 +17,7 @@ let bossHitLoss = -10;
 let eatCarrot = 3; // player gains 3 health point
 let enemyHit = 1; // player loses 1 health points
 const BOSS_MAX_HEALTH = 100; // boss starting health
+const PLAYER_HEALTH_INIT = 100; 
 
 // ---- GAME SOUNDS ======
 let pause_play_sound, laser_sound, explosive_sound, enemyStart_sound, gameBGM; 

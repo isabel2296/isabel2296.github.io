@@ -1,4 +1,3 @@
-const PLAYER_HEALTH_INIT = 100; 
 
 class Element{
     constructor(x,y,speed,sz){
@@ -241,7 +240,6 @@ class Boss extends Element{
             this.x += dx_ * this.speed; 
             this.y += dy_ * this.speed;
             image(bossImg,this.x,this.y,100,150);
-
         }else{
             let minHeight ; 
             if(shieldOnOff){

@@ -37,30 +37,57 @@ class Cart{
   total_price(){
       let total = 0.00; 
       this.inCart.forEach(function(item_){
-          total += item_.price; 
+          total += item_.price * item_.quantity; 
       });
+      return total; 
+  }
+ 
+  reviewCart(){
+    let final = []; 
+    for(let i = 0; i < this.inCart; i++ ){
+      if(final.includes(this.inCart[i])){
+        let ind = final.findIndex(this.inCart[i]); 
+        console.log(ind);
+      }else{
+        final.push(this.inCart[i]);
+        console.log(this.inCart[i]);
+      }
+    }
   }
   displayCart(){
-      
-       console.log(this.table.rows.length);
+      this.reviewCart(); 
        if(this.table.rows.length!=1){
         for(let k = 0; k<this.table.rows.length; k ++){
           this.table.deleteRow(1);
         }
        }
-       console.log(this.table.rows.length);
 
-      for(let i =0; i <= this.inCart.length; i++){
+      for(let i =0; i < this.inCart.length; i++){
         var tr = this.tbdy.insertRow(); 
         for(var j = 0;  j < 4; j++){
           if(i == this.inCart.length && j == 4){
             break; 
           }else{
             var td = tr.insertCell(); 
-            td.appendChild(document.createTextNode(this.inCart[i].unique_id));
+            if(j == 0) td.appendChild(document.createTextNode(this.inCart[i].name));
+            if(j==1)td.appendChild(document.createTextNode(this.inCart[i].unique_id));
+            if(j==2)td.appendChild(document.createTextNode(this.inCart[i].quantity));
+            if(j==3)td.appendChild(document.createTextNode(this.inCart[i].price*this.inCart[i].quantity));
           }
         }
       }
+      var footer = this.table.createTFoot();
+      console.log(footer.rows.length);
+      var row = footer.insertRow(0); 
+      if(footer.rows.length>1){
+         footer.deleteRow(1);
+      } 
+      row.insertCell(); 
+      row.insertCell(); 
+      let totalText = row.insertCell(); 
+      totalText.innerHTML = "<b>Total:";
+      var cell = row.insertCell();
+      cell.innerHTML = this.total_price();
       this.table.appendChild(this.tbdy)
     
   }
@@ -89,10 +116,21 @@ menu.add_item(new Item("bulk-add-item-6", "b6", 20.99, 3 ));
 //===== User Add item to Cart ==============
 $("#featured-AddToCart").click(function(var_){
     console.log("featured item");
-    let item = var_.target.id;
+    let item_type = var_.target.id;
     menu.menu_list.forEach(function(i){
-      if(item==i.unique_id){
-        user_cart.inCart.push(i);
+      let inCartAlready = false; 
+      if(item_type==i.unique_id){
+        for(let k = 0; k < user_cart.inCart.length; k++){
+          if(item_type == user_cart.inCart[k].unique_id){
+            user_cart.inCart[k].quantity++;
+            inCartAlready = true; 
+            break;
+          }else{inCartAlready= false;}
+        }
+        if(inCartAlready==false){
+        user_cart.inCart.push(new Item(i.unique_id, i.name,i.price,1));
+          inCartAlready = false; 
+      }
       }
     });
 });
@@ -102,8 +140,19 @@ $("#bulk-buy-AddToCart").click(function(var_){
 
     let item_type = var_.target.id;
     menu.menu_list.forEach(function(i){
+      let inCartAlready = false; 
       if(item_type==i.unique_id){
-        user_cart.inCart.push(i);
+        for(let k = 0; k < user_cart.inCart.length; k++){
+          if(item_type == user_cart.inCart[k].unique_id){
+            user_cart.inCart[k].quantity++;
+            inCartAlready = true; 
+            break;
+          }else{inCartAlready= false;}
+        }
+        if(inCartAlready==false){
+        user_cart.inCart.push(new Item(i.unique_id, i.name,i.price,1));
+          inCartAlready = false; 
+      }
       }
     });
 });
@@ -114,3 +163,28 @@ $("#viewCart").click(function(){
    user_cart.displayCart(); 
 });
 
+// ===== covid reporting updating ==== 
+
+$("#reported").click(function(){
+
+ var URL = "reporting.html";
+ window.open(URL,"covidCount","width=1000,height=600");
+
+ });
+
+ $('#sendReport').click(function(){
+   var reportedCasesCount = localStorage.getItem('covidCount');
+
+   localStorage.setItem('covidCount', ++reportedCasesCount);
+   document.getElementById("reportedCases").innerHTML = reportedCasesCount;
+ });
+
+ // ====== reservation handling ====== 
+ $("#reservationButton").click(function(){
+
+  var URL = "reservation.html";
+  window.open(URL,"reservRequest","width=1000,height=600");
+ 
+  });
+
+ $().click(function(){});
