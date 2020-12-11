@@ -14,15 +14,15 @@ let kitDies = -100; // player loses 100 points
 let starPoint = 10; // player gets 10 points 
 let bossHitLoss = -10; 
 //======= HealthSystem =============
-let eatCarrot = 3; // player gains 3 health point
+let eatCarrot = 10; // player gains 3 health point
 let enemyHit = 1; // player loses 1 health points
 const BOSS_MAX_HEALTH = 100; // boss starting health
 const PLAYER_HEALTH_INIT = 100; 
 
 // ---- GAME SOUNDS ======
-let pause_play_sound, laser_sound, explosive_sound, enemyStart_sound, gameBGM; 
+let pause_play_sound, laser_sound, explosive_sound, enemyStart_sound, gameBGM, carrot_sound; 
 // --- GAME IMAGES -------------
-let backImg, playerImg, kitImg, bunnyNpcImg, playerHitImg, backGroundImg, enemyImg, enemyHitImg, bossImg, bossHitImg; 
+let backImg, playerImg, kitImg, bunnyNpcImg, playerHitImg, backGroundImg, enemyImg, enemyHitImg, bossImg, bossHitImg, carrotImg; 
 
 // ----- SHIELD VARIABLES -----------
     //     NOTE: Wave variables and helper function taken from https://p5js.org/examples/math-sine-wave.html 
@@ -43,7 +43,7 @@ const player_speedWithKit = 10;
 const laser_speed = 10  ;  /// player's lasers   
 
 // ---- ENEMY & BOSS & KIT Info --------
-let num_of_enemies, num_of_kits,numKitSaved, num_of_kitsLeft,bossFight=false;
+let num_of_enemies, num_of_kits,numKitSaved, num_of_kitsLeft,bossFight=false, carrots,numCarrots;
 var enemies, kits, obs;  //obstacles
 let getInPosi = false; // if enemies are getting in positon will be true once they are in position it will turn false
 var lBoss; 
@@ -99,9 +99,11 @@ function setup()
     enemyHitImg = loadImage('assets/images/boss_hit.png');
     bossImg = loadImage('assets/images/LBoss.png');
     bossHitImg = loadImage('assets/images/LBossHit.png');
+    carrotImg = loadImage('assets/images/carrot.png');
     // Load Game Sound 
     laser_sound = loadSound('assets/sounds/weapon_laser.mp3');
     explosive_sound = loadSound('assets/sounds/explosion.mp3');
+    carrot_sound = loadSound('assets/sounds/loot.wav');
     // Sound Volume
     gameBGM.volume(0.4);
     //pause_play_sound = loadSound();
@@ -121,7 +123,7 @@ function set_game(){
     kits =[];
     obs=[]; 
     bossFight = false; 
-    
+    carrots = [];
     //hide buttons
     restartB.hide(); 
     resumeB.hide(); 
@@ -133,7 +135,8 @@ function set_game(){
     // intialize boss
     lBoss = new Boss(100, height/2, player_speed);
     // initialize enemy and kit values 
-    num_of_enemies = 8; 
+    num_of_enemies = 10; 
+    numCarrots = 20; 
     numKitSaved = 0; 
     num_of_kits = Math.ceil(num_of_enemies/3); 
     let temp = num_of_kits;  
@@ -146,6 +149,11 @@ function set_game(){
           temp--;
           enemies[i].kit = new Kit(kitImg);
       } 
+    }
+    for(let i =0; i < numCarrots ; i++){
+        let ranY = Math.floor((Math.random()*-(height*20))+0);
+        carrots.push(new Carrot(Math.floor((Math.random()*width-80)+80)
+                               ,ranY));
     }
     //shield set up
     dx = (TWO_PI / period) * xspacing;
@@ -199,9 +207,11 @@ function keyPressed( )
                     if(soundOn){soundOn = false; }
                     else if(soundOn == false){ soundOn = false;}
                     else {soundOn = !soundOn; }
-                }else{
                     restartB.show(); 
                     resumeB.show();
+                }else{
+                    restartB.hide(); 
+                    resumeB.hide();
                     soundOn = userSoundChoice;}
                 }
     if(key == ' ' && run_game)  
@@ -240,17 +250,19 @@ function runGame()
     });
     
     laserHandling(); 
+    carrotHandling(); 
     player.shooting(); 
     player.move(); 
     if(bossFight){
-        lBoss.move(player); 
+        if(lBoss.health > 0 ){ 
+          lBoss.move(player); 
         if(lBoss.collide(player)){
             lBoss.isHit = true; 
             player.health -= enemyHit;
             player.hitPulse(); 
         }else{
             lBoss.isHit = false; 
-        }
+        } }
 
     }
     if(shieldOnOff){
@@ -310,7 +322,7 @@ function laserHandling(){
                 lBoss.health -= 10; 
                 lBoss.isHit = true; 
                 player.lasers.splice(i,1);
-                if(lBoss.health ==0){
+                if(lBoss.health <= 0){
                     displayPointsRec("+",1000);
                     
                 }

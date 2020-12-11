@@ -1,6 +1,33 @@
 
 // ============= IN GAME ANIMATIONS ================
+function carrotHandling(){
+    let i_ = 0; 
+    carrots.forEach(function(car){
+        car.move(); 
+        if(car.y > height){
+            carrots.splice(i_,1);
+        }
+        if(car.collide(player)){
+            if(soundOn) carrot_sound.play(); 
+            player.health += eatCarrot; 
+            if(player.health > PLAYER_HEALTH_INIT){
+                player.health =   PLAYER_HEALTH_INIT; 
+            }
+            carrots.splice(i_,1)
+        }
+        if(bossFight && car.collide(lBoss)){
+            if(soundOn) carrot_sound.play(); 
+            lBoss.health+= eatCarrot; 
+            if(lBoss.health>BOSS_MAX_HEALTH){
+                player.health =   BOSS_MAX_HEALTH; 
+            }
+            carrots.splice(i_,1)
+        }
 
+
+        i_++; 
+    });
+}
 //DONE: gives the background image the illusion of scrolling downward  - provided by p5.js
 function background_scroll(){
     image(backImg, 0, y1, display.width, display.height);

@@ -135,6 +135,16 @@ class Kit extends Element{
     }
     
 }
+class Carrot extends Element{
+    constructor(x,y){
+        super(x,y,5,100);
+    }
+    move(){
+        this.y += this.speed; 
+        image(carrotImg,this.x,this.y,80,80);
+
+    }
+}
 class Enemy extends Element{
     constructor(x,y,speed){
         super(x,y,speed, 40);
@@ -187,7 +197,7 @@ class Enemy extends Element{
         this.draw(); 
     }
     moveLeftRight(){
-        if(this.x >= width - this.sz || this.x <=0){
+        if(this.x >= width - this.sz || this.x <=80){
             this.dx = -this.dx; }
         this.x += this.dx; 
         this.draw();
@@ -267,3 +277,6 @@ class Boss extends Element{
     }
 
 }
+
+
+
