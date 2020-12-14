@@ -25,19 +25,19 @@
 						<div id= "main">
 							<section>
 								<h2>Reservation Form</h2>
-								<form method="post" action="#">
+								<form method="post" action="#submitReser">
 									<div class="row gtr-uniform">
 										<div class="col-6 col-12-xsmall">
-											<input type="text" name="demo-name" id="demo-name" value="" placeholder="Name" />
+											<input type="text" name="reserv-name" id="reserv-name" value="" placeholder="Name" />
 										</div>
 										<div class = "col-6 gtr-uniform">
-											<p> <input type = "date"  > Date </p>
+											<p> <input type = "date" id = "reservDate"  > Date </p>
 										</div>
 										<div class="col-6 col-12-xsmall">
-											<input type="email" name="demo-email" id="demo-email" value="" placeholder="Email" />
+											<input type="email" name="reserv-email" id="reserv-email" value="" placeholder="Email" />
 										</div>
 										<div class = "col-6 gtr-uniform">
-											<p> <input type = "number"  > Number of Guests </p>
+											<p> <input type = "number" id = "reserv-numOfGuest"  > Number of Guests </p>
 											</div>
 										<!-- <div class="col-12">
 											<textarea name="demo-message" id="demo-message" placeholder="Enter your message" rows="6"></textarea>
@@ -45,12 +45,32 @@
 										</div> -->
 										<div class="col-12">
 											<ul class="actions">
-												<li><input type="submit" id = "sendReport" value="Send Reservation" class="primary" /></li>
-												<li><input type="reset" value="Reset" /></li>
+												<li><a id = "sendReserv" class="button" href="thankyou.html">Send Reservation</a><script>
+										        	var reserDetail = localStorage.getItem('reservDet');
+
+											</script></li>
+												<!-- <li><input type="submit" id = "sendReserv" value="Send Reservation" class="primary" />
+												<script>
+												var reserDetail = localStorage.getItem("reservDet");
+													
+												</script>
+												</li> -->
+												<li><input type="reset" id = "ClickedReset" value="Reset" />
+												<script>
+													let test = document.getElementById("reserv-name");
+													
+													console.log('testing inner reset');
+												</script></li>
 											</ul>
 										</div>
 									</div>
 								</form>
+							</section>
+							<section id = "submitReser">
+								<script>
+									var reserDetail = localStorage.getItem("reservDet");
+
+								</script>
 							</section>
 						</div>
                    

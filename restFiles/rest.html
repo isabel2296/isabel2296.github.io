@@ -47,8 +47,15 @@
 											<h2>Reservations</h2>
 										</header>
 										<p>Check or Make seeting reserverations for indoor and outdoor dinning. </p>
+										<p><script>
+											var reserDetail = localStorage.getItem('reservDet');
+												if(!reserDetail){
+													reserDetail = "No Reservation made"; 
+												}
+												document.write(reserDetail);
+												</script>  </p>
 										<ul class="actions">
-											<li><a id ="reservationButton" class="button">Check/Make Reservation</a></li>
+											<li><a id ="reservationButton" class="button">Make Reservation</a></li>
 										</ul>
 									</div>
 									<span class="image"><img src="images/table_rserv.jpg" alt="" /></span>
@@ -83,28 +90,6 @@
 										
 										</div>
 								</div>
-								<!-- <ul class="features">
-									<li>
-										<span class="icon solid major style1 fa-code"></span>
-										<h3>Ipsum consequat</h3>
-										<p>Sed lorem amet ipsum dolor et amet nullam consequat a feugiat consequat tempus veroeros sed consequat.</p>
-									</li>
-									<li>
-										<span class="icon major style3 fa-copy"></span>
-										<h3>Amed sed feugiat</h3>
-										<p>Sed lorem amet ipsum dolor et amet nullam consequat a feugiat consequat tempus veroeros sed consequat.</p>
-									</li>
-									<li>
-										<span class="icon major style5 fa-gem"></span>
-										<h3>Dolor nullam</h3>
-										<p>Sed lorem amet ipsum dolor et amet nullam consequat a feugiat consequat tempus veroeros sed consequat.</p>
-									</li>
-								</ul> -->
-								<!-- <footer class="major">
-									<ul class="actions special">
-										<li><a href="generic.html" class="button">View More</a></li>
-									</ul>
-								</footer> -->
 							</section>
 
 						<!--Bulk Buy -->
@@ -141,7 +126,7 @@
 							
 							</section>
 						<!--Reviews  -->
-							<section id="third" class="main special">
+							<!-- <section id="third" class="main special">
 								<header class="major">
 									<h2>Reviews</h2>
 									<p> </p>
@@ -152,7 +137,7 @@
 										<li><a id = "reviewPage" class="button">More Reviews</a></li>
 									</ul>
 								</footer>
-							</section>
+							</section> -->
 
 
 					<!--Cart  -->

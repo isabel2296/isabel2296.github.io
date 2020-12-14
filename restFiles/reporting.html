@@ -8,9 +8,9 @@
 	<head>
 		<title>Covid Reporting</title>
 		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<!-- <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" /> -->
 		<link rel="stylesheet" href="rest_assets/css/main.css" />
-		<noscript><link rel="stylesheet" href="rest_assets/css/noscript.css" /></noscript>
+		<!-- <noscript><link rel="stylesheet" href="rest_assets/css/noscript.css" /></noscript> -->
 	</head>
 	<body class="is-preload">
 
@@ -24,11 +24,13 @@
 					</header>
     
 				<!-- Nav -->
+<!-- 
 					<nav id="nav">
-						<!-- <ul>
+						<ul>
 							<li><a href="rest.html" class="active">Home</a></li>
-						</ul> -->
-					</nav>
+						</ul>
+					</nav> -->
+
 				<!--MAIN-->
 					<div id= "main">
 						<section>
@@ -39,13 +41,13 @@
 										<input type="text" name="demo-name" id="demo-name" value="" placeholder="Name" />
 									</div>
 									<div class = "col-6 gtr-uniform">
-									   <p> <input type = "date" value = "Tested Date" > Date Tested </p>
+									   <p> <input type = "date" id =" TestDate" value = "Tested Date" > Date Tested </p>
 									</div>
 									<div class="col-6 col-12-xsmall">
 										<input type="email" name="demo-email" id="demo-email" value="" placeholder="Email" />
 									</div>
 									<div class = "col-6 gtr-uniform">
-										<p> <input type = "date" value = "Tested Date" > Date Visited </p>
+										<p> <input type = "date" id ="Date Visited" value = "Visit Date" > Date Visited </p>
 									 </div>
 									<!-- <div class="col-12">
 										<textarea name="demo-message" id="demo-message" placeholder="Enter your message" rows="6"></textarea>
@@ -53,8 +55,13 @@
 									</div> -->
 									<div class="col-12">
 										<ul class="actions">
-											<li><input type="submit" id = "sendReport" value="Send Report" class="primary" /></li>
-											<li><input type="reset" value="Reset" /></li>
+											<li><a id = "sendReport" class="button" href="thankyou.html">Submit Report</a><script>
+										        	var reportedCasesCount = localStorage.getItem('covidCount');
+
+											</script></li>
+
+											<!-- <li><input type="submit" id = "sendReport" value="Send Report" class="primary" /></a></li> -->
+											<li><input type="reset" id = "ClickedReset" value="Reset" /></li>
 										</ul>
 									</div>
 								</div>
@@ -62,16 +69,8 @@
 						</section>
 					</div>
 
-				<!-- Footer -->
-					<footer id="footer">
-						<!-- <section>
-							<ul class="icons">
-								<li><a href="#" class="icon brands fa-github alt"><span class="label">GitHub</span></a></li>
-							</ul>
-						</section> -->
-					</footer>
-
 			</div>
+		
 
 		<!-- Scripts -->
 			<script src="rest_assets/js/jquery.min.js"></script>
@@ -82,7 +81,6 @@
 			<script src="rest_assets/js/util.js"></script>
             <script src="rest_assets/js/main.js"></script>
             <script src="rest_assets/js/controller_silva.js"></script>
-			<script src="rest_assets/js/model_silva.js"></script>
 
 	</body>
 </html>

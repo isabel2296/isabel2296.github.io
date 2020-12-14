@@ -1,4 +1,5 @@
 // ISABEL SILVA ASSIGEMENT 4 
+
 // ==== MODEL ===========
 // this will contain the menu items 
 class Item{
@@ -56,8 +57,9 @@ class Cart{
   }
   displayCart(){
       this.reviewCart(); 
+      let currentRows = this.table.rows.length; 
        if(this.table.rows.length!=1){
-        for(let k = 0; k<this.table.rows.length; k ++){
+        for(let k = 0; k<currentRows; k ++){
           this.table.deleteRow(1);
         }
        }
@@ -96,6 +98,8 @@ class Cart{
 class Order{
 
 }
+// CONTROLLER 
+
 var menu = new Menu(); 
 var user_cart = new Cart(); 
 // === Hard Code Menu ==== 
@@ -115,8 +119,9 @@ menu.add_item(new Item("bulk-add-item-6", "b6", 20.99, 3 ));
 
 //===== User Add item to Cart ==============
 $("#featured-AddToCart").click(function(var_){
-    console.log("featured item");
     let item_type = var_.target.id;
+    console.log("featured item", item_type);
+
     menu.menu_list.forEach(function(i){
       let inCartAlready = false; 
       if(item_type==i.unique_id){
@@ -136,9 +141,10 @@ $("#featured-AddToCart").click(function(var_){
 });
 
 $("#bulk-buy-AddToCart").click(function(var_){
-    console.log("bulk-buy item");
 
     let item_type = var_.target.id;
+    console.log("bulk-buy item", item_type);
+
     menu.menu_list.forEach(function(i){
       let inCartAlready = false; 
       if(item_type==i.unique_id){
@@ -160,31 +166,51 @@ $("#bulk-buy-AddToCart").click(function(var_){
 
 //===== UPDATE CART ======
 $("#viewCart").click(function(){
+  console.log("CLICKED View Cart");
+
    user_cart.displayCart(); 
 });
 
 // ===== covid reporting updating ==== 
 
 $("#reported").click(function(){
+  console.log("CLICKED Report Page Button");
 
  var URL = "reporting.html";
- window.open(URL,"covidCount","width=1000,height=600");
+ window.open(URL,"Covid Reporting","width=1000,height=600");
+ console.log("opened report window");
 
  });
 
  $('#sendReport').click(function(){
+   console.log("SUBMITED COVID REPORT");
    var reportedCasesCount = localStorage.getItem('covidCount');
-
    localStorage.setItem('covidCount', ++reportedCasesCount);
-   document.getElementById("reportedCases").innerHTML = reportedCasesCount;
+   document.getElementById("covidCount").innerHTML = reportedCasesCount;
  });
 
  // ====== reservation handling ====== 
  $("#reservationButton").click(function(){
-
+  console.log("open reservation window");
   var URL = "reservation.html";
   window.open(URL,"reservRequest","width=1000,height=600");
- 
-  });
 
- $().click(function(){});
+  });
+$('#sendReserv').click(function(){
+  var reserDetail = localStorage.getItem('reservDet');
+  let name = document.getElementById("reserv-name");
+  let date = document.getElementById("reservDate");
+  let num = document.getElementById("reserv-numOfGuest");
+  let name_ = "Name: ".concat(name.value, "<br>");
+  let date_ = "Date: ".concat(date.value, "<br>");
+  let num_ = "Guest: ".concat(num.value, "<br>");
+  let nameDate = name_.concat(date_, num_, "<br>");
+  reserDetail = nameDate; 
+  localStorage.setItem('reservDet', reserDetail);
+  document.getElementById("reservDet").innerHTML = reserDetail;
+});
+
+
+ $('#ClickedReset').click(function(){
+   console.log("CLICKED RESET");
+ });
