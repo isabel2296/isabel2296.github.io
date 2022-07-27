@@ -1,0 +1,44 @@
+.theme-dark {
+    --dark-text: #60676a;
+    --light-text: #e9ebec;  
+    --nav-light-text: #f0f4f5dc;
+    --dark-background: #2a2d2e;
+    --light-background: #535a5dc3;
+    --accent: #e9ecec;
+    --box-shadow: 0px 1px 7.524px 1px rgba(236, 235, 235, 0.837); 
+    --background-image: url("../logo-images/emile-perron-unsplash.png");
+  }
+  .theme-light {
+    --dark-text: #5E4B56;
+    --light-text: #5E4B56;
+    --dark-background: whitesmoke;
+    --light-background: #e9e6ec;
+    --accent: #DBE7E4;
+    --box-shadow: 0px 1px 7.524px 1px rgba(136, 132, 132, 0.894); 
+    --background-image: url("../logo-images/IMG_5017.jpg");
+
+  }
+  html, #root {
+    background-color: var(--dark-background);
+    color: var(--dark-text);
+  }
+  
+  nav {
+    background-color: var(--dark-background);
+    color: var(--light-text);
+  }
+  
+  .main-container {
+    background-color: var(--light-background);
+  }
+
+  .toggle-icon{
+    width:30px;
+    height: 30px;
+    padding-right: 7px;
+    padding-top: 8px;
+  }
+  p{
+    color: var(--light-text);
+  }
+
