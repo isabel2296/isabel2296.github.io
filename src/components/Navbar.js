@@ -56,9 +56,9 @@ function Navbar(props) {
         </nav>
         {
              togClass ==="light"?
-             <input type="image" src={lightIcon} className="toggle-icon" onClick={handleOnClick}/> 
+             <input type="image" src={darkIcon} className="toggle-icon" onClick={handleOnClick}/> 
              :
-             <input type="image" src={darkIcon} className="toggle-icon" onClick={handleOnClick}/>
+             <input type="image" src={lightIcon} className="toggle-icon" onClick={handleOnClick}/>
             }
     </header>        
     )
