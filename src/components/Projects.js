@@ -25,3 +25,15 @@ function Projects(props) {
 }
 export default Projects;
 
+// id:
+// category: 
+// title: 
+// description: 
+// languages:
+// image: 
+// githubUrl:
+// projectUrl:
+// date:{
+//     year: 
+//     month: 
+// },  
