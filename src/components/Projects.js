@@ -1,8 +1,10 @@
 // src/components/Projects
 import Project from "./component-cards/ProjectCard";
-import projectData from "../data/projectData.js"
+import projectData from "../data/projectData.js";
 
-function Projects(props) {
+
+
+function Projects () {
     const projects = projectData.map(x=>{
         return <Project 
             key= {x.id}
@@ -15,11 +17,13 @@ function Projects(props) {
             month={x.date.month}  
         />
     })
+ 
 
     return(
         <section className="project-section">
             <h2>Projects</h2>
-            <section className="projects-list">{projects}</section>
+            <div>{projects}</div>
+            
         </section>
     );
 }
