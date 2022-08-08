@@ -7,7 +7,7 @@ import { setTheme } from '../utils/themes';
 import lightIcon from '../logo-images/light-mode.png';
 import darkIcon from '../logo-images/dark-mode.png';
 
-function Navbar(props) {
+function Navbar() {
     const [togClass, setTogClass] = useState('dark');
     let theme = localStorage.getItem('theme');
 
