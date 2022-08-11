@@ -9,7 +9,7 @@ function Projects () {
         return <Project 
             key= {x.id}
             projectTitle= {x.title}
-            projDescriptio= {x.description}
+            projDescription= {x.description}
             projImage= {x.image}
             githubURL={x.githubUrl}
             projectURL={x.projectUrl}
@@ -59,31 +59,6 @@ function Projects () {
     );
     
 }
-
-
-// function Projects () {
-//     const projects = projectData.map(x=>{
-//         return <Project 
-//             key= {x.id}
-//             projectTitle= {x.title}
-//             projDescriptio= {x.description}
-//             projImage= {x.image}
-//             githubURL={x.githubUrl}
-//             projectURL={x.projectUrl}
-//             year={x.date.year}
-//             month={x.date.month}  
-//         />
-//     })
- 
-
-//     return(
-//         <section className="project-section">
-//             <h2>Projects</h2>
-//             <div>{projects}</div>
-            
-//         </section>
-//     );
-// }
 export default Projects;
 
 // id:

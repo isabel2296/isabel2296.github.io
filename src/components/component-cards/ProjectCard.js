@@ -1,7 +1,7 @@
 // src/components/Project
 // key= {x.id}
 // projectTitle= {x.title}
-// projDescriptio= {x.description}
+// projDescription= {x.description}
 // projImage= {x.image}
 // githubURL={x.githubUrl}
 // projectURL={x.projectUrl}
@@ -10,11 +10,23 @@
 function Project(props){
     return(
         
-        <div className="project-card"  >
-            <span>{props.projectTitle}</span>    
-            <img className="project-card-image" src={`../images/${props.projImage}`}/>
-             
-        </div>
+        <section className="carousel-container" >
+            <div className="carousel-wrapper">
+              <div className="carousel-content-wrapper">
+                
+                    <h1>{props.projectTitle}
+                    
+                    </h1> 
+                    <p>
+                        {props.projDescription}
+                    </p>   
+            
+              </div>
+              <img className="project-card-image" src={`../images/${props.projImage}`}/>
+
+            </div> 
+        </section>
+        
     );     
 }        
 
