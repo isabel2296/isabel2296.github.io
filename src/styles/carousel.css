@@ -1,12 +1,12 @@
 .carousel-container {
     display: flex;
     flex-direction: column;
-    width: 70%; 
+    width: 100%; 
     box-shadow: 2px 2.98256px 7.4564px 2px rgba(0, 0, 0, 0.607); 
     border-radius: 9px; 
     color: var(--light-text);
     background-color: var(--light-background);
-    height: 300px;
+    height: 100%;
     font-size: 15px;
     flex-direction: column;
     position: relative;
@@ -25,10 +25,16 @@
 }
 
 .carousel-content {
-    /* display: flex; */
+    display: flex;
+    flex-direction: row; 
+    width: 100%; 
+    height: 80%;  
     transition: all 250ms linear;
     -ms-overflow-style: none;  
-    scrollbar-width: none;  
+    scrollbar-width: none; 
+    flex-shrink: 0;
+    flex-grow: 1;
+    align-items: center; 
     
 }
 
@@ -37,14 +43,25 @@
     display: none;
 }
 
-.carousel-content > * {
-    /* width: 100%; */
+/* .carousel-content > * {
     width: 100%;
     height: 100%;
     flex-shrink: 0;
     flex-grow: 1;
     align-items: center;
     
+} */
+.project-card-image{
+    width: 300px;
+    height: 100%;
+    border-radius: 10px; 
+ }
+ .card-discreption{
+    display: flex; 
+    flex-direction: column;
+    padding-left: 20px;
+    padding-right: 30px;
+    padding-top: 0px;
 }
 
 .left-arrow, .right-arrow {
@@ -60,7 +77,7 @@
 }
 
 .left-arrow {
-    left: 0px;
+    left: -15px;
 }
 
 .right-arrow {

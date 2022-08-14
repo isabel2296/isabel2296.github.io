@@ -1,6 +1,6 @@
 // src/components/Projects
 import projectData from "../data/projectData.js";
-
+import blackGithubIcon from "../logo-images/black-github-icon-30.png";
 import '../styles/carousel.css';
 import {useState, useEffect} from 'react'; 
 function Projects () {
@@ -34,6 +34,10 @@ function Projects () {
             setCurrentIndex(prevState => prevState - 1)
         }
     }
+
+    const languageIcons = () => {
+        
+    }
     // Set the length to match current children from props
     useEffect(() => {
         setLength(projects_list.length)
@@ -49,7 +53,7 @@ function Projects () {
                     </button>
                     <div className="carousel-content-wrapper">
                         <div className="carousel-content">
-                            <div>
+                            <div className="card-discreption">
                                 <h1>
                                 
                                     {projects_list[currentIndex].title}
@@ -59,7 +63,12 @@ function Projects () {
                                     {projects_list[currentIndex].description}
 
                                 </p>
+                                <a href={projects_list[currentIndex].githubUrl}>
+                                    <img className="project-card-github" src={blackGithubIcon} />
+                                    </a>
                             </div>
+                            <img className="project-card-image" src={`../images/${projects_list[currentIndex].image}`}/>
+
                         </div>
                     </div>
                     <button onClick={next}className="right-arrow">
