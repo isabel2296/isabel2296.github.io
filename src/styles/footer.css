@@ -1,5 +1,6 @@
 .footer-info{
     background-color:var(--footer-background);
     display: flex;
+    
     justify-content: center;
 }
