@@ -35,9 +35,10 @@ function Projects () {
         }
     }
 
-    const languageIcons = () => {
-        
-    }
+    const languageIcons = projects_list[currentIndex].languages.map(x=>{
+        return <img className="carousel-content-lang-icons" src={`../images/${x}`} />
+    })
+    
     // Set the length to match current children from props
     useEffect(() => {
         setLength(projects_list.length)
@@ -54,18 +55,23 @@ function Projects () {
                     <div className="carousel-content-wrapper">
                         <div className="carousel-content">
                             <div className="card-discreption">
-                                <h1>
-                                
-                                    {projects_list[currentIndex].title}
-
+                            
+                                <h1>                                   
+                                     {projects_list[currentIndex].title}
+                                    <a  href={projects_list[currentIndex].githubUrl}>
+                                        <img  className="project-card-github" src={blackGithubIcon} />
+                                    </a>
+                                    <hr></hr>
+                                    <a className="carousel-content-lang-icon-collection">{languageIcons}</a>
+                                    
                                 </h1> 
+                                
                                 <p>
                                     {projects_list[currentIndex].description}
 
                                 </p>
-                                <a href={projects_list[currentIndex].githubUrl}>
-                                    <img className="project-card-github" src={blackGithubIcon} />
-                                    </a>
+                              
+                             
                             </div>
                             <img className="project-card-image" src={`../images/${projects_list[currentIndex].image}`}/>
 
