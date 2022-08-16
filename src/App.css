@@ -39,7 +39,11 @@ body{
    font-size: 15px;
 }
 
-
+.about-summary{
+   font-weight: bold;
+   padding-left: 10px;
+   padding-right: 45%;
+}
 .about-section{
    background-image: var(--background-image)  ;
    background-size: cover;
@@ -82,7 +86,9 @@ height: 32px;
 }
 
 
-
+hr{
+   border: 1px;
+}
 h2{
    font-size: 35px;
    color: var(--light-text);
@@ -93,6 +99,12 @@ h2{
    font-family: 'Comic Sans';
    font-style: italic;
    font-weight: 10;
+}
+.card-title{
+   display: flex;
+   margin-bottom: -16px;
+   border-bottom: thick;
+
 }
 .skill-list{
    width: 100%;

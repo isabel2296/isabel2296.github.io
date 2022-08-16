@@ -4,19 +4,6 @@ import blackGithubIcon from "../logo-images/black-github-icon-30.png";
 import '../styles/carousel.css';
 import {useState, useEffect} from 'react'; 
 function Projects () {
-    // const projects = projectData.map(x=>{
-    //     return <Project 
-    //         key= {x.id}
-    //         projectTitle= {x.title}
-    //         projDescription= {x.description}
-    //         projImage= {x.image}
-    //         githubURL={x.githubUrl}
-    //         projectURL={x.projectUrl}
-    //         year={x.date.year}
-    //         month={x.date.month}  
-    //     />
-    // })
-
     const projects_list = projectData.map(x=>{
         return x ; 
     })
@@ -56,20 +43,21 @@ function Projects () {
                         <div className="carousel-content">
                             <div className="card-discreption">
                             
-                                <h1>                                   
-                                     {projects_list[currentIndex].title}
+                                <h1 className="card-title">                                   
+                                    {projects_list[currentIndex].title} 
                                     <a  href={projects_list[currentIndex].githubUrl}>
                                         <img  className="project-card-github" src={blackGithubIcon} />
                                     </a>
-                                    <hr></hr>
-                                    <a className="carousel-content-lang-icon-collection">{languageIcons}</a>
-                                    
+                                    <hr/>
+
                                 </h1> 
                                 
                                 <p>
                                     {projects_list[currentIndex].description}
 
                                 </p>
+                                <a className="carousel-content-lang-icon-collection">{languageIcons}</a>
+
                               
                              
                             </div>

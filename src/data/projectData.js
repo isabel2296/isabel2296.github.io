@@ -83,5 +83,19 @@ export default [
             month: "September"
         },  
     },
+    {
+        id: 7,
+        category: "Website",
+        title: "Digital Busines Card",
+        description: "A web application created using React, feel free to scan QR to the right.Display's personal information allowing users to email card holder as well as view card holders' web portfolio, linkedln profile, github profile.",
+        languages: ["icons8-react-40.png","icons8-javascript-48.png", "icons8-css-filetype-48.png","icons8-html-48.png"],
+        image: "QRdigitalBS.png",
+        githubUrl:"https://github.com/isabel2296/digital-busines-card",
+        projectUrl:"null",
+        date:{
+            year: 2022,
+            month: "January"
+        },  
+    },
     
 ]

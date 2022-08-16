@@ -23,7 +23,9 @@
     justify-content: center;    
 
 }
-
+hr{
+    height:2px;border-width:2px;border-color:gray;background-color:gray
+}
 .carousel-content {
     display: flex;
     flex-direction: row; 
