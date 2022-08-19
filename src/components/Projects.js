@@ -42,21 +42,21 @@ function Projects () {
                     <div className="carousel-content-wrapper">
                         <div className="carousel-content">
                             <div className="card-discreption">
-                            
+                                <div>
                                 <h1 className="card-title">                                   
                                     {projects_list[currentIndex].title} 
                                     <a  href={projects_list[currentIndex].githubUrl}>
                                         <img  className="project-card-github" src={blackGithubIcon} />
                                     </a>
-                                    <hr/>
 
                                 </h1> 
-                                
+                                <hr/>
+                                </div>
+                                <a className="carousel-content-lang-icon-collection">{languageIcons}</a>
                                 <p>
                                     {projects_list[currentIndex].description}
 
                                 </p>
-                                <a className="carousel-content-lang-icon-collection">{languageIcons}</a>
 
                               
                              

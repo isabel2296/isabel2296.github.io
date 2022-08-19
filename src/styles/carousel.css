@@ -23,8 +23,8 @@
     justify-content: center;    
 
 }
-hr{
-    height:2px;border-width:2px;border-color:gray;background-color:gray
+.card-title{
+    padding-bottom: 10px;
 }
 .carousel-content {
     display: flex;
@@ -69,6 +69,7 @@ hr{
     display: flex;
     flex-direction: row;
     gap: 6px;
+    padding-top: 3px;
 }
 .carousel-content-lang-icons{
     width: 25px;

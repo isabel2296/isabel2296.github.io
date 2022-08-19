@@ -1,0 +1,33 @@
+.contact-section{
+    display: flex; 
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    
+}
+.contact-me-personal-info{
+    background-color: var(--light-background);
+
+}
+.contact-container-form{
+    background-color: var(--light-background);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 9px;
+    padding: 10px 10px 10px 10px;
+    
+}
+.contact-form-attribute{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding-top: 10px;
+    color: var(--light-text)
+}
+.message-box{
+    column-span: 10;
+}
+.contact-submit{
+    padding-top: 10px ;
+}

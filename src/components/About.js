@@ -9,7 +9,7 @@ function About() {
         <section className="about-section" >
             <h1>HELLO, MY NAME IS ISABEL SILVA</h1>
             <p className="about-summary">
-                I graduated CSUF with a B.S in Computer Science and currently earning a M.S in Software Engineering.
+                I am a software developer with a B.S in Computer Science & earning a M.S in Software Engineering. I love to keep up with the latest programming languages and best practices. I am always looking for new things to learn. 
 
                 
             </p>
