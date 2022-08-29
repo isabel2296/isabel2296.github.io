@@ -41,11 +41,13 @@ body{
 
 .about-summary{
    font-weight: bold;
-   padding-left: 10px;
-   padding-right: 45%;
+   padding-left: 15px;
+   padding-right: 20px;
    padding-top: -25px;
    background-color: var(--light-background);
-   
+}
+.about-intro{
+   padding-left: 10px;
 }
 .about-section{
    background-image: var(--background-image)  ;
@@ -57,30 +59,24 @@ body{
    background-repeat: no-repeat;
    display: flex;
    flex-direction: column;
+   padding-bottom: 20px;
 }
-.about-actions{
-   display: flex;
-   align-items: center;
-   gap: 5px;
-}
+
 .about-resume-download{
    background-color: Transparent;
+   border-radius: 4px;
    border-style: solid;
    border-color: var(--light-text);
    color: var(--light-text);
    text-decoration: none;
-   font-size: 1.2rem;
    font-weight: bold;
    font-size: 10px;
    padding: 5px 10px 5px 10px;
-   margin: 10px;
+   margin: 15px 0px 10px 0px;
    display: inline-block;
    border-width: 2px;
 }
-.about-project-card-github{
-width: 30px;
-height: 32px;
-}
+
 .project-section{
    display: flex;
    flex-direction: column;

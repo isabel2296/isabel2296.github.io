@@ -9,7 +9,7 @@ export default function Contact() {
                 <div className='contact-me-personal-info'>
                     <a />
                 </div>
-                <form className="contact-container-form">
+                <form id="contact-form" onSubmit={this.handleSubmit.bind(this)} method="POST" className="contact-container-form">
                     <div className='contact-name'>
                     <label className='contact-form-attribute'>
                         First Name:
