@@ -3,6 +3,8 @@ import projectData from "../data/projectData.js";
 import blackGithubIcon from "../logo-images/black-github-icon-30.png";
 import '../styles/carousel.css';
 import {useState, useEffect} from 'react'; 
+import React, { Component }  from 'react';
+
 function Projects () {
     const projects_list = projectData.map(x=>{
         return x ; 

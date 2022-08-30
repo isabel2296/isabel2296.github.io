@@ -1,6 +1,7 @@
 import '../styles/footer.css';
 import blackGithubIcon from "../logo-images/black-github-icon-30.png";
 import linkedin from "../logo-images/icons8-linkedin-48.png";
+import React, { Component }  from 'react';
 
 function Footer(){
     return(

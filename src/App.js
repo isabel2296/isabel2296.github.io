@@ -10,6 +10,8 @@ import Skills from "./components/Skills";
 import Experience from "./components/Experience";
 import Footer from './components/Footer';
 import { useState } from 'react';
+import React, { Component }  from 'react';
+
 function App() {
   let theme=localStorage.getItem('theme');
   const handleMouseDown = (event) => {
