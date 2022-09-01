@@ -1,6 +1,6 @@
 import '../styles/contact.css';
 import { useState } from 'react';
-import React, { Component }  from 'react';
+import React, { useRef } from 'react';
 import emailjs from 'emailjs-com'
 
 export default function Contact() {
@@ -8,88 +8,53 @@ export default function Contact() {
     const [lastName, setLName] = useState("");
     const [email, setEmail] = useState("");
     const [message, setMessage] = useState("");
-    const [emailSent, setEmailSent] = useState(false);
-    function encode(data) {
-        return Object.keys(data)
-          .map(
-            (key) => encodeURIComponent(key) + "=" + encodeURIComponent(data[key])
-          )
-          .join("&");
-      }
-    
-      function handleSubmit(e) {
-        e.preventDefault();
-        fetch("/", {
-          method: "POST",
-          headers: { "Content-Type": "application/x-www-form-urlencoded" },
-          body: encode({ "form-name": "contact", firstName, lastName, email, message }),
-        })
-          .then(() => alert("Message sent!"))
-          .catch((error) => alert(error));
-      }
+  
       function isValidEmail (email) {
         const regex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
         return regex.test(String(email).toLowerCase());
        };
-      function submit () {
-        console.log("entered submit function")
-         if (firstName && lastName && isValidEmail(email) && message) {
 
-            const serviceId = 'service_4r7qrye';
-            const templateId = 'template_s3wy4qg';
-            const publicKey = 'sPy2scEgxsHAGbk__';
-            const templateParams = {
-                firstName:"isabel",
-                lastName:"test",
-                email:"isabelsilva@csu.fullerton.edu",
-                message:"testing"
-            };
-            console.log(email, firstName, lastName, message)
-            // emailjs.send(serviceId, templateId, templateParams, user_id)
-            //     .then(response => console.log(response))
-            //     .then(error => console.log(error));
-            emailjs.sendForm(serviceId, templateId, templateParams, publicKey)
-                .then(function(response) {
-                console.log('SUCCESS!', response.status, response.text);
-                }, function(error) {
-                console.log('FAILED...', error);
-                });
-            console.log("MAYBE SENT EMAIL")
-            // setFName('');
-            // setLName('');
-            // setEmail('');
-            // setMessage('');
-            setEmailSent(true);
-            if (emailSent===true){
-                alert('Your email was successfully sent. We will be in contact soon!')
-            }
-        } else {
-            alert('Please fill in all fields.');
-        }
-    }
-    function submit2(){
-        const btn = document.getElementById('button');
-                document.getElementById('form')
-        .addEventListener('submit', function(event) {
-        event.preventDefault();
+   
+ 
+    const form = useRef();
 
-        btn.value = 'Sending...';
+     function resetForm(){
+        setFName('');
+          setLName('');
+          setEmail('');
+          setMessage('');
+          document.getElementById("form").reset()
+          
+
+    }const sendEmail = (e) => {
+        e.preventDefault();
+     
+        if (firstName && lastName && isValidEmail(email) && message) {
 
         const serviceID = 'service_4r7qrye';
         const templateID = 'template_s3wy4qg';
         const publicKey = 'sPy2scEgxsHAGbk__';
-
-        emailjs.sendForm(serviceID, templateID, this, publicKey)
-            .then(() => {
-            btn.value = 'Send Email';
-            alert('Sent!');
-            }, (err) => {
-            btn.value = 'Send Email';
-            alert(JSON.stringify(err));
-            });
-        });
-    }
     
+        emailjs.sendForm(serviceID, templateID, form.current, publicKey)
+          .then((result) => {
+            
+            resetForm()
+            alert('Your email was successfully sent. We will be in contact soon!')
+            
+        }, (error) => {
+            alert(JSON.stringify(error));
+          });
+           
+        } else{
+            if(!isValidEmail(email)){
+                alert('Email Error: Please provide a valid email')
+
+            }else{
+            alert('Please fill in all fields.');}
+
+          }
+
+      };
 
     return(
         <section className="contact-section">
@@ -100,20 +65,22 @@ export default function Contact() {
                     <a />
                 </div>
 
-                <form  id="form" className="contact-container-form">
+                <form  id = "form" ref={form} onSubmit={sendEmail} className="contact-container-form">
                     <div className='contact-name'>
                     <label className='contact-form-attribute'>
                         First Name:
                         <input 
-                        id="firstName"
+                        name="user_firstName"
                         className='input-text' type="text" 
+                        onChange={e => setFName(e.target.value)}
                         />
                     </label>
                     <label className='contact-form-attribute'>
                         Last Name:
                         <input 
-                        id="lastName"
+                        name="user_lastName"
                         className='input-text' type="text" 
+                        onChange={e => setLName(e.target.value)}
                         />
                                                 
                     </label>
@@ -121,16 +88,17 @@ export default function Contact() {
                     <label className='contact-form-attribute'>
                         Your Email:
                         <input 
-                        id="email"
+                        name="user_email"
                         className='input-text' type="text" 
+                        onChange={e => setEmail(e.target.value)}
                         />
                     </label>
                     <label className='contact-form-attribute'>
                         Your Message:
-                        <textarea  id="message" className='message-box' 
-                                    />
+                        <textarea  name="message" className='message-box' 
+                                    onChange={e => setMessage(e.target.value)}/>
                     </label>
-                    <input onSubmit={submit2} id="button" className='contact-submit' type="submit" value='Submit' />
+                    <input  className='contact-submit' type="submit" value='Send' />
                 </form>
 
             
