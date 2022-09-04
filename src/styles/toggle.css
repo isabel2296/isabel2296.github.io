@@ -14,8 +14,8 @@
     --dark-text: #5E4B56;
     --light-text: #4e3f48;
     --nav-light-text: #4e3f489f;
-    --dark-background: whitesmoke;
-    --light-background: #e9e6eca8;
+    --dark-background: rgb(253, 247, 247);
+    --light-background: #e9e6ec65;
     --footer-background: #e9e6ec;
     --accent: #DBE7E4;
     --box-shadow: 0px 1px 7.524px 1px rgba(136, 132, 132, 0.894); 
@@ -33,10 +33,7 @@
     color: var(--dark-text);
   }
   
-  nav {
-    background-color: var(--dark-background);
-    color: var(--light-text);
-  }
+
   
   .main-container {
     background-color: var(--light-background);

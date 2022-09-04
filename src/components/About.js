@@ -6,7 +6,7 @@ import linkedin from "../logo-images/icons8-linkedin-48.png"
 
 function About() {
     return(
-        <section className="about-section" >
+        <section id="about"className="about-section" >
             <h1 className="about-intro">HELLO, MY NAME IS ISABEL SILVA</h1>
             <p className="about-summary">
                 I am a software developer with a B.S in Computer Science & enrolled in a M.S in Software Engineering. I love to keep up with the latest programming languages and best practices. I am always looking for new things to learn. 

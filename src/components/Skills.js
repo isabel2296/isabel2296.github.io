@@ -12,7 +12,7 @@ export default function Skills() {
         />
     })
     return(
-        <div className="skill-div">
+        <div id = "Skills" className="skill-div">
             <h2 className="skill-h2">Skills & Technologies</h2>
             <section className="skill-list">{skills}</section>
         </div>

@@ -4,6 +4,8 @@ import blackGithubIcon from "../logo-images/black-github-icon-30.png";
 import '../styles/carousel.css';
 import {useState, useEffect} from 'react'; 
 import React, { Component }  from 'react';
+import leftArrow from "../logo-images/icons8-wide-left-arrow-64.png"
+import rightArrow from "../logo-images/icons8-wide-right-arrow-64.png"
 
 function Projects () {
     const projects_list = projectData.map(x=>{
@@ -42,16 +44,26 @@ function Projects () {
     }, [projects_list])
 
     return(
-        <section className="project-section">
+        <section id="Projects"className="project-section">
             <h2>Projects</h2> 
-            <div className="card-number-position">
-                    {displayCircles}       
+            <div className="project-movement">
+            <button onClick={prev} className="left-arrow">
+            <img src={leftArrow} className="project-arrow" alt="location"/>
+                    </button>
+             <div className="card-number-position">
+                    {/* {displayCircles}        */
+                        
+                }{currentIndex+1}/{length}
             </div>
+            <button onClick={next}className="right-arrow">
+            <img src={rightArrow} className="project-arrow" alt="location"/>
+
+
+                    </button>
+           </div>
             <div className="carousel-container">
                 <div className="carousel-wrapper">
-                    <button onClick={prev} className="left-arrow">
-                        &lt;
-                    </button>
+                    
                     <div className="carousel-content-wrapper">
                         <div className="carousel-content">
                             <div className="card-discreption">
@@ -59,6 +71,8 @@ function Projects () {
                
                                 <h1 className="card-title">                                   
                                     {projects_list[currentIndex].title} 
+                                
+
                                     <a  href={projects_list[currentIndex].githubUrl}>
                                         <img  className="project-card-github" src={blackGithubIcon} />
                                     </a>
@@ -80,10 +94,7 @@ function Projects () {
                         </div>
                     </div>
                    
-                    <button onClick={next}className="right-arrow">
-                        &gt;
-
-                    </button>
+                    
                     
                 </div> 
             </div>

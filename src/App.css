@@ -6,11 +6,21 @@ body{
    padding: 10px 0px 0px 10px;
    width: 30px;
    height: 25px;
+   /* position: fixed; */
+
 }
 .header-nav{
    display: flex;
-   position:sticky;
+   position: fixed;
+   width: 100%;
+   font-weight: bold;
+   justify-content: center; 
+   gap: 30px;
+   background-color: var(--dark-background);
    box-shadow: 0px 2.98256px 7.4564px 2px rgba(0, 0, 0, 0.607); 
+   top:0;
+   left: 0; 
+
 }
 
 .nav-bar{
@@ -24,15 +34,7 @@ body{
    padding-right: .5em;
    padding-top: .8em;
 }
-@media(min-width:650px){
-   .nav-bar{
-       flex-direction: row;
-   }
-   .header-nav{
-       flex-direction: row;
-       height: 40px;
-   } 
-}
+
 .nav-href{
    text-decoration: none;
    color: var(--nav-light-text);
@@ -43,7 +45,7 @@ body{
    font-weight: bold;
    padding-left: 15px;
    padding-right: 20px;
-   padding-top: -25px;
+   
    background-color: var(--light-background);
 }
 .about-intro{
@@ -60,6 +62,18 @@ body{
    display: flex;
    flex-direction: column;
    padding-bottom: 20px;
+   padding-top: 125px;
+}@media(min-width:550px){
+   .nav-bar{
+       flex-direction: row;
+   }
+   .header-nav{
+       flex-direction: row;
+       height: 40px;
+   } 
+   .about-section{
+      padding-top: 35px;
+   }
 }
 
 .about-resume-download{
