@@ -48,7 +48,8 @@ function Projects () {
             <h2>Projects</h2> 
             <div className="project-movement">
             <button onClick={prev} className="left-arrow">
-            <img src={leftArrow} className="project-arrow" alt="location"/>
+            {/* <img src={leftArrow} className="project-arrow" alt="location"/> */}
+                &larr;
                     </button>
              <div className="card-number-position">
                     {/* {displayCircles}        */
@@ -56,8 +57,7 @@ function Projects () {
                 }{currentIndex+1}/{length}
             </div>
             <button onClick={next}className="right-arrow">
-            <img src={rightArrow} className="project-arrow" alt="location"/>
-
+                    &rarr;
 
                     </button>
            </div>
