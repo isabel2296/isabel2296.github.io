@@ -15,15 +15,23 @@ function Projects () {
     const next = () => {
         if (currentIndex < (length - 1)) {
             setCurrentIndex(prevState => prevState + 1)
-        }
+        }else if (currentIndex == length-1) {
+            setCurrentIndex(prevState => 0)
+        } 
     }
     
     const prev = () => {
         if (currentIndex > 0) {
             setCurrentIndex(prevState => prevState - 1)
+        }else if(currentIndex == 0){
+            setCurrentIndex(prevState => length-1)
         }
     }
-
+    const circles = Array.from(Array(length).keys());
+        
+    const displayCircles = circles.map(x=>{
+        return <div className="circle"></div>
+    })
     const languageIcons = projects_list[currentIndex].languages.map(x=>{
         return <img className="carousel-content-lang-icons" src={`../images/${x}`} />
     })
@@ -35,7 +43,10 @@ function Projects () {
 
     return(
         <section className="project-section">
-            <h2>Projects</h2>
+            <h2>Projects</h2> 
+            <div className="card-number-position">
+                    {displayCircles}       
+            </div>
             <div className="carousel-container">
                 <div className="carousel-wrapper">
                     <button onClick={prev} className="left-arrow">
@@ -45,6 +56,7 @@ function Projects () {
                         <div className="carousel-content">
                             <div className="card-discreption">
                                 <div>
+               
                                 <h1 className="card-title">                                   
                                     {projects_list[currentIndex].title} 
                                     <a  href={projects_list[currentIndex].githubUrl}>
@@ -67,11 +79,13 @@ function Projects () {
 
                         </div>
                     </div>
+                   
                     <button onClick={next}className="right-arrow">
                         &gt;
 
                     </button>
-                </div>
+                    
+                </div> 
             </div>
         </section>
     );

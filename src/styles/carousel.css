@@ -6,7 +6,7 @@
     border-radius: 9px;  */
     color: var(--light-text);
     background-color: var(--light-background);
-    height: 100%;
+    height: 300px;
     font-size: 15px;
     flex-direction: column;
     position: relative;
@@ -27,6 +27,7 @@
     padding-bottom: 10px;
 }
 .carousel-content {
+    padding-top: 29px;
     display: flex;
     flex-direction: row; 
     width: 100%; 
@@ -55,7 +56,7 @@
 } */
 .project-card-image{
     width: 300px;
-    height: 100%;
+    height: 250px;
     border-radius: 10px; 
  }
  .card-discreption{
@@ -98,4 +99,18 @@
 
 .right-arrow {
     right: 0px;
+}
+.card-number-position{
+    display: flex;
+    justify-content: center;
+    margin-top: -20px;
+    padding-bottom: 10px;
+    gap: 3px;
+}
+.circle{
+    border-radius: 50%;
+    height: 8px;
+    width: 8px;
+    background-color: var(--fill-circle);
+    border: 1px solid var(--nav-light-text);
 }

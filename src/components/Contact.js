@@ -9,16 +9,16 @@ export default function Contact() {
     const [email, setEmail] = useState("");
     const [message, setMessage] = useState("");
   
-      function isValidEmail (email) {
-        const regex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-        return regex.test(String(email).toLowerCase());
-       };
+    function isValidEmail (email) {
+    const regex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return regex.test(String(email).toLowerCase());
+    };
 
    
  
     const form = useRef();
 
-     function resetForm(){
+    function resetForm(){
         setFName('');
           setLName('');
           setEmail('');

@@ -13,6 +13,7 @@
   .theme-light {
     --dark-text: #5E4B56;
     --light-text: #4e3f48;
+    --nav-light-text: #4e3f489f;
     --dark-background: whitesmoke;
     --light-background: #e9e6eca8;
     --footer-background: #e9e6ec;
@@ -21,6 +22,12 @@
     --background-image: url("../logo-images/IMG_5017.jpg");
 
   }
+  /* .live-project{
+      --fill-circle: rgba(52, 230, 233, 0.345);
+  }
+  .hidden-project{
+    --fill-circle: none;
+  } */
   html, #root {
     background-color: var(--dark-background);
     color: var(--dark-text);
