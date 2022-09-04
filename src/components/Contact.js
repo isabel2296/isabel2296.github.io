@@ -30,12 +30,8 @@ export default function Contact() {
         e.preventDefault();
      
         if (firstName && lastName && isValidEmail(email) && message) {
-
-        const serviceID = 'service_4r7qrye';
-        const templateID = 'template_s3wy4qg';
-        const publicKey = 'sPy2scEgxsHAGbk__';
     
-        emailjs.sendForm(serviceID, templateID, form.current, publicKey)
+        emailjs.sendForm(process.env.REACT_APP_SERVICE_ID, process.env.REACT_APP_TEMPLATE_ID, form.current, process.env.REACT_APP_USER_ID)
           .then((result) => {
             
             resetForm()
