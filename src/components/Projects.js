@@ -11,7 +11,7 @@ function Projects () {
     })
     const [currentIndex, setCurrentIndex] = useState(0)
     const [length, setLength] = useState(projects_list.length)
-
+    const [isFilled, setIsFilled] = useState(false)
     const next = () => {
         if (currentIndex < (length - 1)) {
             setCurrentIndex(prevState => prevState + 1)

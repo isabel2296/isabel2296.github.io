@@ -41,16 +41,16 @@ function Navbar() {
             {/* <img className="icon-image" src={togClass=="light"? {iconImageBlack}: {iconImageWhite}} */}
         </a>      
         <nav className="nav-bar">
-            <a href="#projects" className="nav-href" >
+            <a href="#Projects" className="nav-href" >
                 Projects
             </a>
-            <a  href="#skills" className="nav-href">
+            <a  href="#Skills" className="nav-href">
                 Skills
             </a>
-            <a href="#experience" className="nav-href">
+            {/* <a href="#Experience" className="nav-href">
                 Experience
-            </a>
-            <a href="#contact" className="nav-href" >
+            </a> */}
+            <a href="#Contact" className="nav-href" >
             Contact Me
             </a>  
         </nav>
