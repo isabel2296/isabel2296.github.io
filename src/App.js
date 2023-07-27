@@ -1,16 +1,9 @@
-import logo from './logo.svg';
 import './App.css';
-import React, { Component }  from 'react';
+import React  from 'react';
 import {BrowserRouter, Route, Routes} from 'react-router-dom';
 import { keepTheme } from './utils/themes';
-import { useState, useEffect } from 'react';
-import About from "./components/About";
-import Projects from "./components/Projects";
-import Skills from "./components/Skills";
-import Experience from "./components/Experience";
-import Footer from './components/Footer';
-import SlideMenu from './components/SideMenu';
-import Header from './components/Header';
+import {  useEffect } from 'react';
+
 import SideMenu from './components/SideMenu';
 
 function App() {
