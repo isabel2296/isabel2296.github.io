@@ -1,12 +1,10 @@
-import React, {useState, useRef, useEffect} from 'react';
+import React from 'react';
 import '../styles/sideMenuHeader.css';
-import { Button, Form, Input, Image} from 'antd';
+import { Button, Form, Input} from 'antd';
 import emailjs from 'emailjs-com';
 import smile from '../images/gestures.png';
-import portrait from '../images/portrait.png'
 import "../App.css";
 import "../styles/contact.css"
-import Footer from './Footer';
 
 const service_id = process.env.REACT_APP_EMAIL_EMAIL_SERVICE_ID;
 const email_template_id=process.env.REACT_APP_EMAIL_TEMPLATE_ID;

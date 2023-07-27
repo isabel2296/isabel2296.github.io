@@ -1,20 +1,11 @@
 // src/components/Navbar
-import iconImageBlack from "../images/blacklogo.png"
-import iconImageWhite from "../images/whitelogo.png"
 import React, { useEffect, useState } from 'react';
 import '../styles/toggle.css';
 import { setTheme } from '../utils/themes';
-import lightIcon from '../images/light-mode.png';
-import darkIcon from '../images/dark-mode.png';
+
 import "../styles/sideMenuHeader.css"
 import { Switch } from "antd";
-import SideMenu from "./SideMenu";
-import {
-    AppstoreOutlined,
-    ContainerOutlined,
-    MenuFoldOutlined,
-    PieChartOutlined,
-  } from '@ant-design/icons';
+
 
 function Header() {
     const [togClass, setTogClass] = useState('dark');

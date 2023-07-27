@@ -1,15 +1,13 @@
-import { MailOutlined, SettingOutlined, MenuUnfoldOutlined,
-    PieChartOutlined, ContainerOutlined, MenuFoldOutlined,
-     DesktopOutlined, AppstoreOutlined } from '@ant-design/icons';
-import { Menu, Switch, Button } from 'antd';
+import { MailOutlined, MenuUnfoldOutlined,
+     ContainerOutlined, MenuFoldOutlined,
+      AppstoreOutlined } from '@ant-design/icons';
+import { Menu } from 'antd';
 import React ,{ useEffect, useState } from 'react';
 import Header from './Header';
 import Contact from './Contact.js';
-import projectData from "../data/projectData.js";
 import About from './About';
 import Experience from './Experience';
 import Projects from './Projects';
-import Skills from './Skills';
 import '../styles/sideMenuHeader.css'
 import Footer from './Footer.js';
 

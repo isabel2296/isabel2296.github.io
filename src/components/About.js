@@ -1,9 +1,6 @@
 // src/components/About
 import React from "react"
 import resume_url from "../documentations/Isabel-Silva-Resume.pdf"
-import blackGithubIcon from "../images/black-github-icon-30.png";
-import linkedin from "../images/icons8-linkedin-48.png"
-import Header from "./Header";
 import { Button, Divider, Image} from 'antd';
 import portrait from '../images/portrait.png'
 

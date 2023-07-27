@@ -1,4 +1,6 @@
-import React, { Component }  from 'react';
+// NOTE: Not being Used
+
+import React  from 'react';
 
 export default function Experience() {
     return(

@@ -1,7 +1,5 @@
 import '../styles/footer.css';
-import blackGithubIcon from "../images/black-github-icon-30.png";
-import linkedin from "../images/icons8-linkedin-48.png";
-import React, { Component }  from 'react';
+import React  from 'react';
 import {LinkedinOutlined, GithubOutlined, MailOutlined} from '@ant-design/icons'
 
 

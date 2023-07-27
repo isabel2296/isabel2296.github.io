@@ -1,6 +1,6 @@
 import SkillCard from "./component-cards/SkillCard"
 import skilldata from "../data/skillsData.js"
-import React, { Component }  from 'react';
+import React from 'react';
 
 export default function Skills() {
     const skills = skilldata.map(x=>{
