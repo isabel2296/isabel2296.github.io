@@ -1,21 +1,20 @@
 {
   "files": {
-    "main.css": "/static/css/main.ecacd31f.css",
-    "main.js": "/static/js/main.2794734a.js",
-    "static/js/787.fd048758.chunk.js": "/static/js/787.fd048758.chunk.js",
+    "main.css": "/static/css/main.5e4b0736.css",
+    "main.js": "/static/js/main.1e6f9574.js",
+    "static/js/496.e2168c8b.chunk.js": "/static/js/496.e2168c8b.chunk.js",
     "static/media/emile-perron-unsplash.png": "/static/media/emile-perron-unsplash.b01fe58a627e40c3b75b.png",
     "static/media/IMG_5017.jpg": "/static/media/IMG_5017.7e2258885d9ea2a58dba.jpg",
-    "static/media/Isabel-Silva-Resume.pdf": "/static/media/Isabel-Silva-Resume.ecabc8d7f45005800984.pdf",
-    "static/media/blacklogo.png": "/static/media/blacklogo.709b6a45268d0e891fbc.png",
-    "static/media/whitelogo.png": "/static/media/whitelogo.beb993a8b8ae32e83ace.png",
-    "static/media/logo.svg": "/static/media/logo.6ce24c58023cc2f8fd88fe9d219db6c6.svg",
+    "static/media/portrait.png": "/static/media/portrait.e7d8e2fb082b0269c621.png",
+    "static/media/Isabel-Silva-Resume.pdf": "/static/media/Isabel-Silva-Resume.1e75c880b94a92f97634.pdf",
+    "static/media/gestures.png": "/static/media/gestures.5fe10db2b3bf8b21f934.png",
     "index.html": "/index.html",
-    "main.ecacd31f.css.map": "/static/css/main.ecacd31f.css.map",
-    "main.2794734a.js.map": "/static/js/main.2794734a.js.map",
-    "787.fd048758.chunk.js.map": "/static/js/787.fd048758.chunk.js.map"
+    "main.5e4b0736.css.map": "/static/css/main.5e4b0736.css.map",
+    "main.1e6f9574.js.map": "/static/js/main.1e6f9574.js.map",
+    "496.e2168c8b.chunk.js.map": "/static/js/496.e2168c8b.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.ecacd31f.css",
-    "static/js/main.2794734a.js"
+    "static/css/main.5e4b0736.css",
+    "static/js/main.1e6f9574.js"
   ]
 }
