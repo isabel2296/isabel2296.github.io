@@ -1,11 +1,9 @@
 // src/components/Projects
 import projectData from "../data/projectData.js";
-import blackGithubIcon from "../logo-images/black-github-icon-30.png";
+import blackGithubIcon from "../images/black-github-icon-30.png";
 import '../styles/carousel.css';
 import {useState, useEffect} from 'react'; 
-import React, { Component }  from 'react';
-import leftArrow from "../logo-images/icons8-wide-left-arrow-64.png"
-import rightArrow from "../logo-images/icons8-wide-right-arrow-64.png"
+import {LeftCircleOutlined, RightCircleOutlined } from '@ant-design/icons';
 
 function Projects () {
     const projects_list = projectData.map(x=>{
@@ -44,22 +42,29 @@ function Projects () {
     }, [projects_list])
 
     return(
-        <section id="Projects"className="project-section">
-            <h2>Projects</h2> 
+        <section id="Projects"className="project-wrapper">
+            <h2 className="page-title">Projects</h2> 
+            <div className="project-section">
             <div className="project-movement">
-            <button onClick={prev} className="left-arrow">
-            {/* <img src={leftArrow} className="project-arrow" alt="location"/> */}
-                &larr;
-                    </button>
-             <div className="card-number-position">
-                    {/* {displayCircles}        */
-                        
-                }{currentIndex+1}/{length}
-            </div>
-            <button onClick={next}className="right-arrow">
-                    &rarr;
+            
+                <button onClick={prev} className="project-arrow">
+                              <LeftCircleOutlined 
+             style={{fontSize: '27px', color: "var(--dark-text)"}}
 
-                    </button>
+                              />
+
+                        </button>
+                <div className="card-number-position">
+                        {/* {displayCircles}        */
+                            
+                    }{currentIndex+1}/{length}
+                </div>
+                <button onClick={next}className="project-arrow">
+                        <RightCircleOutlined 
+                            style={{fontSize: '27px', color: "var(--dark-text)"}}
+
+                        />
+                        </button>
            </div>
             <div className="carousel-container">
                 <div className="carousel-wrapper">
@@ -97,6 +102,7 @@ function Projects () {
                     
                     
                 </div> 
+            </div>
             </div>
         </section>
     );

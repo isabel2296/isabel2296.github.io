@@ -1,49 +1,48 @@
-.contact-section{
-    display: flex; 
-    justify-content: center;
-    flex-direction: column;
-    align-items: center;
-    
-}
-.contact-me-personal-info{
-    background-color: var(--light-background);
+/* Contact Page CSS */
 
-}
-.contact-container-form{
-    background-color: var(--light-background);
-    display: flex;
-    flex-direction: column;
-    /* align-items: center; */
-    border-radius: 9px;
-    padding: 15px 15px 15px 15px;
-    gap: 10px;
-    
-}
-.contact-name{
-    display: flex;
-    flex-direction: row;
-    gap: 20px;
-}
-.contact-form-attribute{
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    padding-top: 10px;
-    color: var(--light-text);
-    justify-content: left;
-}
+.contact-section-wrapper{
+    display: grid;
+   flex-direction: row;
+   align-items: center; 
+   gap: 30px; 
+   padding: 10px; 
+ }
 
-.contact-submit{
-    width: 100px;
-    justify-content: center;
-    color: var(--nav-light-text);
-    height: 30px;
-    position: center;
-    background-color: var(--dark-background);
-    border-radius: 10px;
-    border-color: var(--dark-background);
-}
-.input-text{
-    height: 23px;
-    
-}
+ .contact-form-section{
+   display: flex;
+   flex-direction: column;
+   background-color: var(--light-background); 
+   border-radius: 9px;
+   box-shadow: var(--box-shadow);
+   padding: 15px;
+ }
+ .contact-form-section .ant-form-item-label label {
+   color: var(--light-text); 
+ }
+ 
+ .contact-container-form{
+   
+ }
+ 
+ .contact-form-attribute{
+ 
+ }
+ 
+ .icons{
+   width: 25px;
+   height: 25px;
+ }
+ 
+ .contact-section-image{
+   width: 200px;
+   height: 200px;
+   display: inline-block; /* Ensure the container wraps around the image */
+   padding: 4px; /* Add padding to adjust the spacing between the image and the outline */
+ }
+ 
+ .styled-image {
+   display: block; /* Ensure the image takes up the entire space within the container */
+   border-radius: 50%; /* Set the same radius to match the container */
+   border: 3px solid var(--light-background); 
+ 
+ }

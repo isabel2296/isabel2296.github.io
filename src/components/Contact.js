@@ -1,106 +1,123 @@
-import '../styles/contact.css';
-import { useState } from 'react';
-import React, { useRef } from 'react';
-import emailjs from 'emailjs-com'
+import React, {useState, useRef, useEffect} from 'react';
+import '../styles/sideMenuHeader.css';
+import { Button, Form, Input, Image} from 'antd';
+import emailjs from 'emailjs-com';
+import smile from '../images/gestures.png';
+import portrait from '../images/portrait.png'
+import "../App.css";
+import "../styles/contact.css"
+import Footer from './Footer';
 
-export default function Contact() {
-    const [firstName, setFName] = useState("");
-    const [lastName, setLName] = useState("");
-    const [email, setEmail] = useState("");
-    const [message, setMessage] = useState("");
-  
-    function isValidEmail (email) {
-    const regex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    return regex.test(String(email).toLowerCase());
+const service_id = process.env.REACT_APP_EMAIL_EMAIL_SERVICE_ID;
+const email_template_id=process.env.REACT_APP_EMAIL_TEMPLATE_ID;
+const emailjs_id= process.env.REACT_APP_EMAILJS_PRIVATE_KEY;
+
+const Contact = () => {
+    const formRef = React.useRef(null);
+    const { TextArea } = Input;
+   
+    const createFormElement = (formData) => {
+      const formElement = document.createElement("form");
+    
+      for (const fieldName in formData) {
+        if (formData.hasOwnProperty(fieldName)) {
+          const inputElement = document.createElement("input");
+          inputElement.name = fieldName;
+          inputElement.value = formData[fieldName];
+          formElement.appendChild(inputElement);
+        }
+      }
+    
+      return formElement;
     };
 
-   
- 
-    const form = useRef();
-
-    function resetForm(){
-        setFName('');
-          setLName('');
-          setEmail('');
-          setMessage('');
-          document.getElementById("form").reset()
-          
-
-    }const sendEmail = (e) => {
-        e.preventDefault();
-     
-        if (firstName && lastName && isValidEmail(email) && message) {
-    
-        emailjs.sendForm(process.env.REACT_APP_SERVICE_ID, process.env.REACT_APP_TEMPLATE_ID, form.current, process.env.REACT_APP_USER_ID)
-          .then((result) => {
-            
-            resetForm()
-            alert('Your email was successfully sent. We will be in contact soon!')
-            
-        }, (error) => {
-            alert(JSON.stringify(error));
-          });
-           
-        } else{
-            if(!isValidEmail(email)){
-                alert('Email Error: Please provide a valid email')
-
-            }else{
-            alert('Please fill in all fields.');}
-
-          }
-
+    const onFinish = (values) => {
+        console.log(values);
+        sendEmail(values);
       };
+    const onReset = () => {
+        formRef.current?.resetFields();
+      };
+  
+    const sendEmail = (values) => {
+      const andtFormData = formRef.current.getFieldsValue();
+      const htmlFormElement = createFormElement(andtFormData);
+      emailjs.sendForm(service_id, email_template_id, htmlFormElement, emailjs_id)
+        .then((result) => {
+            alert("Message Sent! Talk with you soon. :) ");
+            onReset();
+        }, (error) => {
+            alert(error.text);
+        });
+    };
+    return (
+      <div>
+        <h1 className='page-title'>Contact Me</h1>
 
-    return(
-        <section id="Contact"className="contact-section">
-            <h2>Contact Me</h2>
-            
-            <div>
-                <div className='contact-me-personal-info'>
-                    <a />
-                </div>
+        <div className='contact-section-wrapper'>
 
-                <form  id = "form" ref={form} onSubmit={sendEmail} className="contact-container-form">
-                    <div className='contact-name'>
-                    <label className='contact-form-attribute'>
-                        First Name:
-                        <input 
-                        name="user_firstName"
-                        className='input-text' type="text" 
-                        onChange={e => setFName(e.target.value)}
-                        />
-                    </label>
-                    <label className='contact-form-attribute'>
-                        Last Name:
-                        <input 
-                        name="user_lastName"
-                        className='input-text' type="text" 
-                        onChange={e => setLName(e.target.value)}
-                        />
-                                                
-                    </label>
-                    </div>
-                    <label className='contact-form-attribute'>
-                        Your Email:
-                        <input 
-                        name="user_email"
-                        className='input-text' type="text" 
-                        onChange={e => setEmail(e.target.value)}
-                        />
-                    </label>
-                    <label className='contact-form-attribute'>
-                        Your Message:
-                        <textarea  name="message" className='message-box' 
-                                    onChange={e => setMessage(e.target.value)}/>
-                    </label>
-                    <input  className='contact-submit' type="submit" value='Send' />
-                </form>
+          {/* <img src={Divider}/> */}  
+          <section id="Contact" className='contact-form-section'>
+              <h1>Send me a message <img src={smile} className='icons' /> </h1>
+              <Form
+              className='contact-container-form'
+              ref={formRef}
+              name="control-ref"
+              onFinish={onFinish}
+              onReset={onReset}
+              style={{
+                maxWidth: 600,
+              }}>
+              <Form.Item
 
-            
-            </div>
-            <hr/>
+              className='contact-container-attribute'
+              name="user_name"
+              label="Name"
+              rules={[{ required: true, 
+                  message: 'Please input your first and last name as it should appear in the email.' }
+                  ,{
+                  type: 'string',
+                  min: 6,
+                  },]}>
+                  <Input  />
+              </Form.Item>
 
-        </section>
+              <Form.Item 
+                      label="Email"  
+                      name="user_email"
+                      rules={[{ required: true, message: 'Please input a valid email.' }
+                      ,{
+                      type: 'email',
+                      min: 6,
+                      },]}>
+                  <Input />
+
+              </Form.Item>
+              
+              <Form.Item 
+                        className='contact-container-attribute'
+
+                      label="Message" 
+                      name="user_message"
+                      rules={[{required: true, message:'Please input a message. '}]}>
+                
+                      <TextArea rows={4} />
+              </Form.Item>
+              <Form.Item   >
+
+                <Button
+                    htmlType="submit"
+                    > Submit</Button>
+
+              </Form.Item>
+            </Form>  
+          </section>
+          <footer>Contact: isabelsilva2296@gmail.com <br/>Located in California, willing to relocate. </footer>
+          
+        </div>
+      </div>
     );
+
 }
+
+export default Contact; 

@@ -12,8 +12,8 @@ export default function Skills() {
         />
     })
     return(
-        <div id = "Skills" className="skill-div">
-            <h2 className="skill-h2">Skills & Technologies</h2>
+        <div id = "Skills" className="skill-wrapper">
+            <h2 className="skill-title-h2">Skills & Technologies</h2>
             <section className="skill-list">{skills}</section>
         </div>
     );

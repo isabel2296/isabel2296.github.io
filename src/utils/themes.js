@@ -1,6 +1,8 @@
 function setTheme(themeName) {
     localStorage.setItem('theme', themeName);
+    // localStorage.setItem('key', 'theme'); // Set the key property
     document.documentElement.className = themeName;
+    window.dispatchEvent(new Event('storage'));
 }
 
 function keepTheme() {
