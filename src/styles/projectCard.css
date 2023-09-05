@@ -1,0 +1,35 @@
+
+.project-card-container{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+.project-card-wrapper{
+   width: 250px;
+   background-color: var(--dark-backgroundTwo);
+   box-shadow: var(--box-shadow);
+   border-radius: 9px;
+   outline: .5px double var(--light-text); /* You can adjust the width and style as needed */
+
+}
+.project-card-header{
+    flex-wrap:wrap;
+    background-color: var(--light-background);
+    border-top-left-radius: 9px;
+    border-top-right-radius: 9px;
+    padding: 10px;
+
+
+}
+.project-card-body{
+    padding: 10px;
+}
+.project-card-links{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-bottom: 10px;
+}

@@ -1,5 +1,19 @@
 export default [
     {
+        id: 0,
+        title: "Tag!",
+        category: "Web-Development",
+        description: "This is an Instagram clone with a custom Parse backend that allows a user to post photos, view a global photos feed, and add comments! User's are able to sign in/out or create new account. Users can take a photo, add a caption, and post on server.",
+        languages: ["icons8-react-40.png","icons8-javascript-48.png", "icons8-css-filetype-48.png","icons8-html-48.png"],
+        image: "pars2.gif",
+        githubUrl:"https://github.com/isabel2296/tag",
+        projectUrl:"https://tag-cardmanager.vercel.app/",
+        date:{
+            year: 2023,
+            month: "MAY"
+        },  
+    },
+    {
         id: 1,
         title: "Parstagram",
         category: "IOS",
@@ -7,7 +21,7 @@ export default [
         languages: ["icons8-swift-48.png"],
         image: "pars2.gif",
         githubUrl:"https://github.com/isabel2296/Parstagram",
-        projectUrl:"null",
+        projectUrl:"",
         date:{
             year: 2022,
             month: "April"
@@ -43,13 +57,13 @@ export default [
     },
     {
         id: 4,
-        category: "Web Development",
+        category: "Web-Development",
         title: "Space Bunnies",
         description: "One of my first web applications Space Bunnies Space Bunnies is a shoot ‘em up arcade style game that will take players on a laser blasting’ journey through space to defeat vicious alien invaders and bring the hostage kits to safety.",
         languages: ["icons8-javascript-48.png","icons8-html-48.png"],
         image: "space-bunnies-main.png",
         githubUrl:"https://github.com/isabel2296/Space-Bunnies",
-        projectUrl:"https://isabel2296.github.io/spaceBunniesFall2020/main.html",
+        projectUrl:"",
         date:{
             year: 2020,
             month: "August"
@@ -63,7 +77,7 @@ export default [
         languages: ["icons8-python-48.png"],
         image: "managmentPic.png",
         githubUrl:"https://github.com/isabel2296/Hotel-Management-Software",
-        projectUrl:"null",
+        projectUrl:"",
         date:{
             year: 2021,
             month: "June"
@@ -77,7 +91,7 @@ export default [
         languages: ["icons8-c++-48.png"],
         image: "rat20com.png",
         githubUrl:"https://github.com/isabel2296/RAT20SU-Compiler-CPSC323",
-        projectUrl:"null",
+        projectUrl:"",
         date:{
             year: 2020,
             month: "September"
@@ -85,13 +99,13 @@ export default [
     },
     {
         id: 7,
-        category: "Website",
+        category: "Web-Development",
         title: "Digital Busines Card",
         description: "A web application created using React, feel free to scan QR to the right.Display's personal information allowing users to email card holder as well as view card holders' web portfolio, linkedln profile, github profile.",
         languages: ["icons8-react-40.png","icons8-javascript-48.png", "icons8-css-filetype-48.png","icons8-html-48.png"],
         image: "QRdigitalBS.png",
         githubUrl:"https://github.com/isabel2296/digital-busines-card",
-        projectUrl:"null",
+        projectUrl:"https://isabel-silva.vercel.app/",
         date:{
             year: 2022,
             month: "January"
