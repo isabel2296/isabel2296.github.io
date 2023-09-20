@@ -1,35 +1,60 @@
-
-.project-card-container{
+.project-card-container {
     display: flex;
     flex-wrap: wrap;
     gap: 15px;
     flex-direction: row;
-    align-items: center;
+    align-items: stretch; /* Make all cards the same height */
     justify-content: center;
 }
-.project-card-wrapper{
-   width: 250px;
-   background-color: var(--dark-backgroundTwo);
-   box-shadow: var(--box-shadow);
-   border-radius: 9px;
-   outline: .5px double var(--light-text); /* You can adjust the width and style as needed */
 
+.project-card-wrapper {
+    width: 250px;
+    background-color: var(--dark-backgroundTwo);
+    box-shadow: var(--box-shadow);
+    outline: 1px solid var(--nav-light-text); 
+    /* outline: 2px solid var(--light-background); */
+    border-radius: 9px;
+    display: flex;
+    flex-direction: column;
+    
 }
-.project-card-header{
-    flex-wrap:wrap;
+
+.project-card-header {
+    max-height: 60px;
     background-color: var(--light-background);
     border-top-left-radius: 9px;
     border-top-right-radius: 9px;
-    padding: 10px;
-
-
+    padding: 0 10px; /* Removed unnecessary zero values */
+    white-space: nowrap;
+    line-height: 0; /* Set line-height to 0 */
+    position: relative; /* Create a positioning context for absolute positioning */
 }
-.project-card-body{
-    padding: 10px;
+
+.project-card-header > p {
+    font-size: 12px;
 }
-.project-card-links{
+
+.project-link-icon {
+    width: 19px;
+    position: absolute;
+    top: 10px; /* Adjust the top value as needed */
+    right: 10px; /* Adjust the right value as needed */
+}
+
+.project-card-body {
+    flex-grow: 1; /* Make the body area grow to fill the available space */
+    padding: 10px;
+    /* Ensure the content inside doesn't overflow */
+    max-height: 200px; /* Adjust the height as needed */
+    overflow: auto;
+}
+
+.project-card-links {
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding-bottom: 10px;
+    padding: 10px;
+    bottom: 0; /* Stick the links to the bottom of the card */
 }
+
+/* You may need to adjust other styles as per your design */
