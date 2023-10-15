@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/static/css/main.b1f215eb.css",
-    "main.js": "/static/js/main.bce7575b.js",
+    "main.js": "/static/js/main.3cf8c7c9.js",
     "static/js/496.e2168c8b.chunk.js": "/static/js/496.e2168c8b.chunk.js",
     "static/media/emile-perron-unsplash.png": "/static/media/emile-perron-unsplash.b01fe58a627e40c3b75b.png",
     "static/media/IMG_5017.jpg": "/static/media/IMG_5017.7e2258885d9ea2a58dba.jpg",
@@ -10,11 +10,11 @@
     "static/media/gestures.png": "/static/media/gestures.5fe10db2b3bf8b21f934.png",
     "index.html": "/index.html",
     "main.b1f215eb.css.map": "/static/css/main.b1f215eb.css.map",
-    "main.bce7575b.js.map": "/static/js/main.bce7575b.js.map",
+    "main.3cf8c7c9.js.map": "/static/js/main.3cf8c7c9.js.map",
     "496.e2168c8b.chunk.js.map": "/static/js/496.e2168c8b.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.b1f215eb.css",
-    "static/js/main.bce7575b.js"
+    "static/js/main.3cf8c7c9.js"
   ]
 }
